@@ -1,0 +1,6 @@
+@Packer.API_HostAddress = http://localhost:5147
+
+GET {{Packer.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

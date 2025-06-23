@@ -1,0 +1,14 @@
+﻿global using Packer.Application.Interfaces.Conmmunication;
+global using Packer.Application.Interfaces.Repository;
+global using Packer.Application.Services;
+global using Packer.Infrastructure.Repositories.Users;
+global using Packer.Infrastructure.Services.Communication;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.EntityFrameworkCore;
+global using Packer.Domain.Entities;
+global using Packer.Infrastructure.Data;
+global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+global using Packer.Infrastructure.Data.DataContext.TableConfig;
+global using Packer.Application.Config;
+global using Microsoft.Extensions.Options;
