@@ -46,12 +46,4 @@ namespace Packer.Application.DTOs
         public string Email { get; set; }
         public string Password { get; set; }
     }
-
-    public class MoveRequestDto
-    {
-        public string SourceAddress { get; set; }
-        public string DestinationAddress { get; set; }
-        public DateTime MoveDate { get; set; }
-        public List<string> Items { get; set; }
-    }
 } 

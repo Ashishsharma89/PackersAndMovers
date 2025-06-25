@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Packer.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using Packer.Infrastructure.Data;
 namespace Packer.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250623064639_AddMoveRequestAndUserTables")]
+    partial class AddMoveRequestAndUserTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,18 +48,6 @@ namespace Packer.Infrastructure.Migrations
                     b.Property<DateTime>("MoveDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<TimeSpan?>("MoveTime")
-                        .HasColumnType("time");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("SelectedServices")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("SourceAddress")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -69,10 +60,6 @@ namespace Packer.Infrastructure.Migrations
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
-
-                    b.Property<string>("ValueAddedServices")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
 
                     b.HasKey("Id");
 

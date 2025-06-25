@@ -6,6 +6,11 @@ using Packer.Infrastructure.Repositories.Users;
 using Packer.Application.Interfaces.Auth;
 using Packer.Application.Interfaces.Conmmunication;
 using Packer.Infrastructure.Services.Communication;
+using Packer.Application.Interfaces.Users;
+using packers.Application.Interfaces.Repository;
+using packers.Infrastructure.Repositories.Users;
+using packers.Application.Interfaces.Users;
+using packers.Application.Services;
 
 namespace Packer.Infrastructure.DIConfiguration
 {
@@ -17,6 +22,8 @@ namespace Packer.Infrastructure.DIConfiguration
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IResetTokenRepository, ResetTokenRepository>();
             services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IMoveRequestRepository, MoveRequestRepository>();
+            services.AddScoped<IMoveService, MoveService>();
 
             return services;
         }

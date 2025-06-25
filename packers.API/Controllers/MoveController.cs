@@ -1,62 +1,58 @@
 using Microsoft.AspNetCore.Mvc;
-using Packer.Application.DTOs;
-using Packer.Domain.Entities;
+using packers.Application.DTOs; 
+using packers.Application.Interfaces.Users;
 
 [ApiController]
 [Route("api/move")]
 public class MoveController : ControllerBase
 {
-    [HttpPost("request")]
-    public IActionResult CreateMove([FromBody] MoveRequestDto dto, [FromQuery] int userId)
+    private readonly IMoveService _moveService;
+    public MoveController(IMoveService moveService)
     {
-        var move = new MoveRequest
-        {
-            Id = InMemoryDb.Moves.Count + 1,
-            UserId = userId,
-            SourceAddress = dto.SourceAddress,
-            DestinationAddress = dto.DestinationAddress,
-            MoveDate = dto.MoveDate,
-            Items = string.Join(",", dto.Items),
-            Status = "Pending",
-            EstimatedPrice = 1000 + dto.Items.Count * 100 // Simple price logic
-        };
-        InMemoryDb.Moves.Add(move);
+        _moveService = moveService;
+    }
+
+    [HttpPost("request/quote")]
+    public async Task<IActionResult> GetInstantQuote([FromBody] MoveRequestDto dto)
+    {
+        var price = await _moveService.GetInstantQuoteAsync(dto);
+        return Ok(new { estimatedPrice = price });
+    }
+
+    [HttpPost("request")]
+    public async Task<IActionResult> CreateMove([FromBody] MoveRequestDto dto, [FromQuery] int userId)
+    {
+        var move = await _moveService.CreateMoveAsync(dto, userId);
         return Ok(move);
     }
 
     [HttpGet("requests")]
-    public IActionResult GetMyMoves([FromQuery] int userId)
+    public async Task<IActionResult> GetMyMoves([FromQuery] int userId)
     {
-        var moves = InMemoryDb.Moves.Where(m => m.UserId == userId).ToList();
+        var moves = await _moveService.GetUserMovesAsync(userId);
         return Ok(moves);
     }
 
     [HttpGet("request/{id}")]
-    public IActionResult GetMove(int id, [FromQuery] int userId)
+    public async Task<IActionResult> GetMove(int id, [FromQuery] int userId)
     {
-        var move = InMemoryDb.Moves.FirstOrDefault(m => m.Id == id && m.UserId == userId);
+        var move = await _moveService.GetMoveByIdAsync(id, userId);
         if (move == null) return NotFound();
         return Ok(move);
     }
 
     [HttpPut("request/{id}")]
-    public IActionResult UpdateMove(int id, [FromBody] MoveRequestDto dto, [FromQuery] int userId)
+    public async Task<IActionResult> UpdateMove(int id, [FromBody] MoveRequestDto dto, [FromQuery] int userId)
     {
-        var move = InMemoryDb.Moves.FirstOrDefault(m => m.Id == id && m.UserId == userId);
+        var move = await _moveService.UpdateMoveAsync(id, dto, userId);
         if (move == null) return NotFound();
-        move.SourceAddress = dto.SourceAddress;
-        move.DestinationAddress = dto.DestinationAddress;
-        move.MoveDate = dto.MoveDate;
-        move.Items = string.Join(",", dto.Items);
         return Ok(move);
     }
 
     [HttpDelete("request/{id}")]
-    public IActionResult DeleteMove(int id, [FromQuery] int userId)
+    public async Task<IActionResult> DeleteMove(int id, [FromQuery] int userId)
     {
-        var move = InMemoryDb.Moves.FirstOrDefault(m => m.Id == id && m.UserId == userId);
-        if (move == null) return NotFound();
-        InMemoryDb.Moves.Remove(move);
+        await _moveService.DeleteMoveAsync(id, userId);
         return Ok("Deleted");
     }
 } 

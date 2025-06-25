@@ -11,6 +11,7 @@ namespace Packer.Infrastructure.Data
         }
 
         public DbSet<User> Users { get; set; } = null!;
+        public DbSet<MoveRequest> MoveRequests { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -33,6 +34,25 @@ namespace Packer.Infrastructure.Data
                 entity.Property(e => e.IsResetTokenUsed)
                     .IsRequired()
                     .HasDefaultValue(false);
+            });
+
+            modelBuilder.Entity<MoveRequest>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.SourceAddress).IsRequired().HasMaxLength(200);
+                entity.Property(e => e.DestinationAddress).IsRequired().HasMaxLength(200);
+                entity.Property(e => e.MoveDate).IsRequired();
+                entity.Property(e => e.Items).IsRequired();
+                entity.Property(e => e.Status).IsRequired().HasMaxLength(20);
+                entity.Property(e => e.EstimatedPrice).HasColumnType("decimal(18,2)");
+                entity.Property(e => e.PhoneNumber).IsRequired().HasMaxLength(20);
+                entity.Property(e => e.ValueAddedServices).HasMaxLength(200);
+                entity.Property(e => e.SelectedServices).HasMaxLength(200);
+                entity.Property(e => e.MoveTime);
+                entity.HasOne<User>()
+                      .WithMany()
+                      .HasForeignKey(e => e.UserId)
+                      .OnDelete(DeleteBehavior.Cascade);
             });
         }
     }

@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Packer.Domain.Entities;
 
 [ApiController]
 [Route("api/admin/move")]
