@@ -1,15 +1,16 @@
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using System.Security.Cryptography;
-using packers.Application.Config;
-using packers.Domain.Entities;
-using packers.Application.DTOs;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Packer.Application.Config;
+using packers.Application.Config;
+using packers.Application.DTOs;
 using packers.Application.Interfaces.Auth;
-using packers.Application.Interfaces.Repository;
 using packers.Application.Interfaces.Conmmunication;
+using packers.Application.Interfaces.Repository;
+using packers.Domain.Entities;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace packers.Application.Services
 {
@@ -126,15 +127,13 @@ namespace packers.Application.Services
             if (user == null)
                 throw new Exception("User not found");
 
-            var currentPasswordHash = GeneratePasswordHash(currentPassword);
-            if (user.PasswordHash != currentPasswordHash)
+            if (!PasswordHelper.VerifyPassword(currentPassword, user.PasswordHash))
                 throw new Exception("Current password is incorrect");
 
-            var newPasswordHash = GeneratePasswordHash(newPassword);
-            if (user.PasswordHash == newPasswordHash)
+            if (PasswordHelper.VerifyPassword(newPassword, user.PasswordHash))
                 throw new Exception("New password cannot be the same as your current password");
 
-            user.PasswordHash = newPasswordHash;
+            user.PasswordHash = PasswordHelper.HashPassword(newPassword);
             await _userRepository.UpdateAsync(user);
             return true;
         }

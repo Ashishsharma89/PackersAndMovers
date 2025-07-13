@@ -1,10 +1,13 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Packer.Application.Config;
 using packers.Application.DTOs;
-using System.Security.Claims;
 using packers.Application.Interfaces.Auth;
 using packers.Application.Interfaces.Conmmunication;
 using packers.Domain.Entities;
+using packers.Infrastructure.Data;
+using System.Security.Claims;
 
 namespace packers.API.Controllers
 {
@@ -14,37 +17,54 @@ namespace packers.API.Controllers
     {
         private readonly IAuthService _authService;
         private readonly IEmailService _emailService;
-
-        public AuthController(IAuthService authService, IEmailService emailService)
+        private readonly ApplicationDbContext _dbContext;
+        public AuthController(IAuthService authService, IEmailService emailService, ApplicationDbContext dbContext)
         {
             _authService = authService;
             _emailService = emailService;
+            _dbContext = dbContext;
         }
 
         [HttpPost("register")]
         public IActionResult Register([FromBody] RegisterDto dto)
         {
-            if (InMemoryDb.Users.Any(u => u.Email == dto.Email))
+            if (_dbContext.Users.Any(u => u.Email == dto.Email))
                 return BadRequest("Email already exists.");
+
             var user = new User
             {
-                Id = new Random().Next(1, int.MaxValue),
                 Email = dto.Email,
-                PasswordHash = dto.Password, // Hash in real app!
+                PasswordHash = PasswordHelper.HashPassword(dto.Password), // Hash in real app!
                 Name = dto.Name,
-                Role = "User"
+                Role = "User",
+                Age = dto.Age,
+                IsVerified = false
             };
-            InMemoryDb.Users.Add(user);
+
+            _dbContext.Users.Add(user);
+            _dbContext.SaveChanges();
+
             return Ok("Registered!");
         }
 
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginDto dto)
         {
-            var user = InMemoryDb.Users.FirstOrDefault(u => u.Email == dto.Email && u.PasswordHash == dto.Password);
-            if (user == null) return Unauthorized();
-            // Return a fake token for demo
-            return Ok(new { token = "fake-jwt-token", userId = user.Id, role = user.Role });
+            var user = _dbContext.Users.FirstOrDefault(u => u.Email == dto.Email);
+            if (user == null) // Ensure user is not null before accessing its properties
+                return Unauthorized();
+
+            // Hash the password only after ensuring user is not null
+            user.PasswordHash = PasswordHelper.HashPassword(dto.Password);
+            bool isValid = PasswordHelper.VerifyPassword(dto.Password, user.PasswordHash);
+            // Verify the password using your hashing helper or IAuthService
+            if (!isValid)
+                return Unauthorized();
+
+            // Generate a JWT token (replace with your actual implementation)
+            var token = _authService.GenerateJwtToken(user);
+
+            return Ok(new { token, userId = user.Id, role = user.Role });
         }
 
         [HttpPost("verify-otp")]
