@@ -7,14 +7,14 @@ namespace packers.Application.Interfaces.Repository
 {
     public interface IAssignmentRepository
     {
-        Task<Assignment?> GetByIdAsync(Guid id);
+        Task<Assignment?> GetByIdAsync(int id);
         Task<IEnumerable<Assignment>> GetAllAsync();
         Task<Assignment> AddAsync(Assignment assignment);
         Task<Assignment> UpdateAsync(Assignment assignment);
-        Task DeleteAsync(Guid id);
-        Task<IEnumerable<Assignment>> GetByDriverIdAsync(Guid driverId);
-        Task<IEnumerable<Assignment>> GetByTruckIdAsync(Guid truckId);
-        Task<IEnumerable<Assignment>> GetByMoveRequestIdAsync(Guid moveRequestId);
+        Task DeleteAsync(int id);
+        Task<IEnumerable<Assignment>> GetByDriverIdAsync(int driverId);
+        Task<IEnumerable<Assignment>> GetByTruckIdAsync(int truckId);
+        Task<IEnumerable<Assignment>> GetByMoveRequestIdAsync(int moveRequestId);
         Task<IEnumerable<Assignment>> GetByStatusAsync(string status);
     }
 } 

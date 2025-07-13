@@ -7,12 +7,12 @@ namespace packers.Application.Interfaces.Repository
 {
     public interface IShipmentRepository
     {
-        Task<Shipment?> GetByIdAsync(Guid id);
+        Task<Shipment?> GetByIdAsync(int id);
         Task<IEnumerable<Shipment>> GetAllAsync();
         Task AddAsync(Shipment shipment);
         Task UpdateAsync(Shipment shipment);
-        Task DeleteAsync(Guid id);
-        Task<IEnumerable<Shipment>> GetByUserIdAsync(Guid userId);
-        Task<IEnumerable<Shipment>> GetByDriverIdAsync(Guid driverId);
+        Task DeleteAsync(int id);
+        Task<IEnumerable<Shipment>> GetByUserIdAsync(int userId);
+        Task<IEnumerable<Shipment>> GetByDriverIdAsync(int driverId);
     }
 } 

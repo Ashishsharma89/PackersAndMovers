@@ -25,7 +25,7 @@ namespace packers.API.Controllers
         }
 
         [HttpGet("{driverId}")]
-        public async Task<ActionResult<DriverDto>> GetDriver(Guid driverId)
+        public async Task<ActionResult<DriverDto>> GetDriver(int driverId)
         {
             var driver = await _driverService.GetDriverByIdAsync(driverId);
             if (driver == null)

@@ -8,9 +8,9 @@ namespace packers.Application.Interfaces.Repository
     {
         Task<Review> AddAsync(Review review);
         Task<IEnumerable<Review>> GetByTargetAsync(int targetId, ReviewTargetType targetType);
-        Task<IEnumerable<Review>> GetByUserAsync(Guid userId);
-        Task<Review?> GetByIdAsync(Guid reviewId);
-        Task<bool> DeleteAsync(Guid reviewId);
+        Task<IEnumerable<Review>> GetByUserAsync(int userId);
+        Task<Review?> GetByIdAsync(int reviewId);
+        Task<bool> DeleteAsync(int reviewId);
         Task<bool> UpdateAsync(Review review);
     }
 } 

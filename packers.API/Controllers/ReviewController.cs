@@ -32,14 +32,14 @@ namespace packers.API.Controllers
         }
 
         [HttpGet("user/{userId}")]
-        public async Task<IActionResult> GetReviewsByUser(Guid userId)
+        public async Task<IActionResult> GetReviewsByUser(int userId)
         {
             var reviews = await _reviewService.GetReviewsByUserAsync(userId);
             return Ok(reviews);
         }
 
         [HttpPut("{reviewId}")]
-        public async Task<IActionResult> UpdateReview(Guid reviewId, [FromBody] CreateReviewDto dto)
+        public async Task<IActionResult> UpdateReview(int reviewId, [FromBody] CreateReviewDto dto)
         {
             var result = await _reviewService.UpdateReviewAsync(reviewId, dto);
             if (!result) return NotFound();
@@ -47,7 +47,7 @@ namespace packers.API.Controllers
         }
 
         [HttpDelete("{reviewId}")]
-        public async Task<IActionResult> DeleteReview(Guid reviewId)
+        public async Task<IActionResult> DeleteReview(int reviewId)
         {
             var result = await _reviewService.DeleteReviewAsync(reviewId);
             if (!result) return NotFound();

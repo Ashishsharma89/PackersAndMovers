@@ -6,7 +6,7 @@ using packers.Domain.Entities;
 public class UserController : ControllerBase
 {
     [HttpGet("profile")]
-    public IActionResult Profile([FromQuery] Guid userId)
+    public IActionResult Profile([FromQuery] int userId)
     {
         var user = InMemoryDb.Users.FirstOrDefault(u => u.Id == userId);
         if (user == null) return NotFound();
@@ -14,7 +14,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPost("register-device-token")]
-    public IActionResult RegisterDeviceToken([FromQuery] Guid userId, [FromBody] string deviceToken)
+    public IActionResult RegisterDeviceToken([FromQuery] int userId, [FromBody] string deviceToken)
     {
         var user = InMemoryDb.Users.FirstOrDefault(u => u.Id == userId);
         if (user == null) return NotFound();

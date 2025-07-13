@@ -24,7 +24,7 @@ namespace packers.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(Guid id)
+        public async Task<IActionResult> GetById(int id)
         {
             var customer = await _customerService.GetCustomerByIdAsync(id);
             if (customer == null) return NotFound();
@@ -39,7 +39,7 @@ namespace packers.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, [FromBody] Customer customer)
+        public async Task<IActionResult> Update(int id, [FromBody] Customer customer)
         {
             if (id != customer.Id) return BadRequest();
             var updated = await _customerService.UpdateCustomerAsync(customer);
@@ -47,7 +47,7 @@ namespace packers.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete(int id)
         {
             await _customerService.DeleteCustomerAsync(id);
             return NoContent();

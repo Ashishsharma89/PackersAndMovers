@@ -17,7 +17,7 @@ namespace packers.Infrastructure.Repositories.Users
             _context = context;
         }
 
-        public async Task<Truck?> GetByIdAsync(Guid id)
+        public async Task<Truck?> GetByIdAsync(int id)
         {
             return await _context.Trucks.FindAsync(id);
         }
@@ -41,7 +41,7 @@ namespace packers.Infrastructure.Repositories.Users
             return truck;
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(int id)
         {
             var truck = await _context.Trucks.FindAsync(id);
             if (truck != null)

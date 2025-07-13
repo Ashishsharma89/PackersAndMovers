@@ -16,7 +16,7 @@ namespace packers.Application.Services
             _customerRepository = customerRepository;
         }
 
-        public async Task<Customer?> GetCustomerByIdAsync(Guid id)
+        public async Task<Customer?> GetCustomerByIdAsync(int id)
         {
             return await _customerRepository.GetByIdAsync(id);
         }
@@ -29,7 +29,7 @@ namespace packers.Application.Services
         public async Task<Customer> CreateCustomerAsync(Customer customer)
         {
             // Set default values
-            customer.Id = Guid.NewGuid();
+            customer.Id = new Random().Next(1, int.MaxValue);
             customer.RegistrationDate = DateTime.UtcNow;
             customer.Status = "Active";
 
@@ -41,7 +41,7 @@ namespace packers.Application.Services
             return await _customerRepository.UpdateAsync(customer);
         }
 
-        public async Task DeleteCustomerAsync(Guid id)
+        public async Task DeleteCustomerAsync(int id)
         {
             await _customerRepository.DeleteAsync(id);
         }

@@ -10,7 +10,7 @@ namespace packers.Application.Interfaces.Auth
         Task<AuthResponseDto> LoginAsync(LoginRequestDto request);
         Task<bool> RegisterAsync(RegisterDto request);
         Task<AuthResponseDto> VerifyOtpAsync(VerifyOtpDto request);
-        Task<bool> ChangePasswordAsync(Guid userId, string currentPassword, string newPassword);
+        Task<bool> ChangePasswordAsync(int userId, string currentPassword, string newPassword);
         Task<bool> ResetPasswordAsync(string email);
         Task<bool> SetNewPasswordAsync(string email, string resetToken, string newPassword);
         Task<string> GenerateJwtToken(User user);

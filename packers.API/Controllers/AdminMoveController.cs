@@ -11,7 +11,7 @@ public class AdminMoveController : ControllerBase
     }
 
     [HttpPut("request/{id}/status")]
-    public IActionResult UpdateStatus(Guid id, [FromBody] string status)
+    public IActionResult UpdateStatus(int id, [FromBody] string status)
     {
         var move = InMemoryDb.Moves.FirstOrDefault(m => m.Id == id);
         if (move == null) return NotFound();

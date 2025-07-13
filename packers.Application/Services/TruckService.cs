@@ -15,7 +15,7 @@ namespace packers.Application.Services
             _truckRepository = truckRepository;
         }
 
-        public async Task<Truck?> GetTruckByIdAsync(Guid id)
+        public async Task<Truck?> GetTruckByIdAsync(int id)
         {
             return await _truckRepository.GetByIdAsync(id);
         }
@@ -27,7 +27,7 @@ namespace packers.Application.Services
 
         public async Task<Truck> CreateTruckAsync(Truck truck)
         {
-            truck.Id = Guid.NewGuid();
+            truck.Id = new Random().Next(1, int.MaxValue); 
             truck.Status = "Available";
             return await _truckRepository.AddAsync(truck);
         }
@@ -37,7 +37,7 @@ namespace packers.Application.Services
             return await _truckRepository.UpdateAsync(truck);
         }
 
-        public async Task DeleteTruckAsync(Guid id)
+        public async Task DeleteTruckAsync(int id)
         {
             await _truckRepository.DeleteAsync(id);
         }

@@ -27,7 +27,7 @@ namespace packers.API.Controllers
         {
             var shipment = new Shipment
             {
-                Id = Guid.NewGuid(),
+                Id = new Random().Next(1, int.MaxValue),
                 UserId = dto.UserId,
                 DriverId = dto.DriverId,
                 EstimatedArrival = dto.EstimatedArrival,
@@ -39,7 +39,7 @@ namespace packers.API.Controllers
         }
 
         [HttpGet("status/{shipmentId}")]
-        public async Task<ActionResult<ShipmentStatusDto>> GetShipmentStatus(Guid shipmentId)
+        public async Task<ActionResult<ShipmentStatusDto>> GetShipmentStatus(int shipmentId)
         {
             var shipment = await _shipmentService.GetShipmentByIdAsync(shipmentId);
             if (shipment == null)
@@ -55,7 +55,7 @@ namespace packers.API.Controllers
         }
 
         [HttpPost("confirm-delivery/{shipmentId}")]
-        public async Task<IActionResult> ConfirmDelivery(Guid shipmentId)
+        public async Task<IActionResult> ConfirmDelivery(int shipmentId)
         {
             await _shipmentService.ConfirmDeliveryAsync(shipmentId);
 

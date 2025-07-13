@@ -6,9 +6,9 @@ namespace packers.Application.Interfaces.Users
 {
     public interface IUserServices
     {
-        Task<User> GetUserByIdAsync(Guid userId);
+        Task<User> GetUserByIdAsync(int userId);
         Task<User> GetUserByEmailAsync(string email);
         Task<bool> UpdateUserAsync(User user);
-        Task<bool> DeleteUserAsync(Guid userId);
+        Task<bool> DeleteUserAsync(int userId);
     }
 }

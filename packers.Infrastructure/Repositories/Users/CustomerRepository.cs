@@ -17,7 +17,7 @@ namespace packers.Infrastructure.Repositories.Users
             _context = context;
         }
 
-        public async Task<Customer?> GetByIdAsync(Guid id)
+        public async Task<Customer?> GetByIdAsync(int id)
         {
             return await _context.Customers.FindAsync(id);
         }
@@ -41,7 +41,7 @@ namespace packers.Infrastructure.Repositories.Users
             return customer;
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(int id)
         {
             var customer = await _context.Customers.FindAsync(id);
             if (customer != null)

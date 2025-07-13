@@ -26,7 +26,7 @@ namespace packers.Application.Services
             return Task.FromResult(price);
         }
 
-        public async Task<MoveRequest> CreateMoveAsync(MoveRequestDto dto, Guid userId)
+        public async Task<MoveRequest> CreateMoveAsync(MoveRequestDto dto, int userId)
         {
             var price = await GetInstantQuoteAsync(dto);
             var move = new MoveRequest
@@ -46,18 +46,18 @@ namespace packers.Application.Services
             return await _moveRequestRepository.AddAsync(move);
         }
 
-        public Task<List<MoveRequest>> GetUserMovesAsync(Guid userId)
+        public Task<List<MoveRequest>> GetUserMovesAsync(int userId)
         {
             return _moveRequestRepository.GetByUserIdAsync(userId);
         }
 
-        public async Task<MoveRequest?> GetMoveByIdAsync(int id, Guid userId)
+        public async Task<MoveRequest?> GetMoveByIdAsync(int id, int userId)
         {
             var move = await _moveRequestRepository.GetByIdAsync(id);
             return move?.UserId == userId ? move : null;
         }
 
-        public async Task<MoveRequest?> UpdateMoveAsync(int id, MoveRequestDto dto, Guid userId)
+        public async Task<MoveRequest?> UpdateMoveAsync(int id, MoveRequestDto dto, int userId)
         {
             var move = await _moveRequestRepository.GetByIdAsync(id);
             if (move?.UserId != userId) return null;
@@ -75,7 +75,7 @@ namespace packers.Application.Services
             return await _moveRequestRepository.UpdateAsync(move);
         }
 
-        public async Task DeleteMoveAsync(int id, Guid userId)
+        public async Task DeleteMoveAsync(int id, int userId)
         {
             var move = await _moveRequestRepository.GetByIdAsync(id);
             if (move != null && move.UserId == userId)

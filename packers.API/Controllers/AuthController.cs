@@ -28,7 +28,7 @@ namespace packers.API.Controllers
                 return BadRequest("Email already exists.");
             var user = new User
             {
-                Id = Guid.NewGuid(),
+                Id = new Random().Next(1, int.MaxValue),
                 Email = dto.Email,
                 PasswordHash = dto.Password, // Hash in real app!
                 Name = dto.Name,
@@ -67,8 +67,8 @@ namespace packers.API.Controllers
         {
             try
             {
-                var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? Guid.Empty.ToString());
-                if (userId == Guid.Empty)
+                var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
+                if (userId == 0) // Replace int.Empty with 0
                     return Unauthorized();
 
                 var result = await _authService.ChangePasswordAsync(userId, request.CurrentPassword, request.NewPassword);

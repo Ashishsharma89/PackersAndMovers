@@ -15,7 +15,7 @@ namespace packers.Application.Services
             _driverRepository = driverRepository;
         }
 
-        public async Task<Driver?> GetDriverByIdAsync(Guid id)
+        public async Task<Driver?> GetDriverByIdAsync(int id)
         {
             return await _driverRepository.GetByIdAsync(id);
         }
@@ -35,12 +35,12 @@ namespace packers.Application.Services
             await _driverRepository.UpdateAsync(driver);
         }
 
-        public async Task DeleteDriverAsync(Guid id)
+        public async Task DeleteDriverAsync(int id)
         {
             await _driverRepository.DeleteAsync(id);
         }
 
-        public async Task UpdateDriverLocationAsync(Guid driverId, double latitude, double longitude)
+        public async Task UpdateDriverLocationAsync(int driverId, double latitude, double longitude)
         {
             await _driverRepository.UpdateLocationAsync(driverId, latitude, longitude);
         }

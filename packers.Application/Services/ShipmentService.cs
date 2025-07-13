@@ -15,17 +15,17 @@ namespace packers.Application.Services
             _shipmentRepository = shipmentRepository;
         }
 
-        public async Task<Shipment?> GetShipmentByIdAsync(Guid id)
+        public async Task<Shipment?> GetShipmentByIdAsync(int id)
         {
             return await _shipmentRepository.GetByIdAsync(id);
         }
 
-        public async Task<IEnumerable<Shipment>> GetShipmentsByUserIdAsync(Guid userId)
+        public async Task<IEnumerable<Shipment>> GetShipmentsByUserIdAsync(int userId)
         {
             return await _shipmentRepository.GetByUserIdAsync(userId);
         }
 
-        public async Task<IEnumerable<Shipment>> GetShipmentsByDriverIdAsync(Guid driverId)
+        public async Task<IEnumerable<Shipment>> GetShipmentsByDriverIdAsync(int driverId)
         {
             return await _shipmentRepository.GetByDriverIdAsync(driverId);
         }
@@ -40,12 +40,12 @@ namespace packers.Application.Services
             await _shipmentRepository.UpdateAsync(shipment);
         }
 
-        public async Task DeleteShipmentAsync(Guid id)
+        public async Task DeleteShipmentAsync(int id)
         {
             await _shipmentRepository.DeleteAsync(id);
         }
 
-        public async Task ConfirmDeliveryAsync(Guid shipmentId)
+        public async Task ConfirmDeliveryAsync(int shipmentId)
         {
             var shipment = await _shipmentRepository.GetByIdAsync(shipmentId);
             if (shipment != null)
@@ -56,7 +56,7 @@ namespace packers.Application.Services
             }
         }
 
-        public async Task<DateTime?> GetEstimatedArrivalAsync(Guid shipmentId)
+        public async Task<DateTime?> GetEstimatedArrivalAsync(int shipmentId)
         {
             var shipment = await _shipmentRepository.GetByIdAsync(shipmentId);
             return shipment?.EstimatedArrival;

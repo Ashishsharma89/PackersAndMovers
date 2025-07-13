@@ -5,7 +5,7 @@ namespace packers.Application.DTOs
 {
     public class CreateReviewDto
     {
-        public Guid UserId { get; set; }
+        public int UserId { get; set; }
         public int TargetId { get; set; }
         public ReviewTargetType TargetType { get; set; }
         public int Rating { get; set; }

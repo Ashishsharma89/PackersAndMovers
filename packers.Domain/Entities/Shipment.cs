@@ -12,9 +12,9 @@ namespace packers.Domain.Entities
 
     public class Shipment
     {
-        public Guid Id { get; set; }
-        public Guid UserId { get; set; }
-        public Guid DriverId { get; set; }
+        public int Id { get; set; }
+        public int UserId { get; set; }
+        public int DriverId { get; set; }
         public ShipmentStatus Status { get; set; }
         public DateTime EstimatedArrival { get; set; }
         public bool DeliveryConfirmed { get; set; }

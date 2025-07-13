@@ -46,7 +46,7 @@ namespace packers.Infrastructure.Repositories.Users
             return await _context.MoveRequests.FindAsync(id);
         }
 
-        public async Task<List<MoveRequest>> GetByUserIdAsync(Guid userId)
+        public async Task<List<MoveRequest>> GetByUserIdAsync(int userId)
         {
             return await _context.MoveRequests.Where(m => m.UserId == userId).ToListAsync();
         }

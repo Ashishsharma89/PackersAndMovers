@@ -28,17 +28,17 @@ namespace packers.Infrastructure.Repositories.Users
             return await _context.Set<Review>().Where(r => r.TargetId == targetId && r.TargetType == targetType).ToListAsync();
         }
 
-        public async Task<IEnumerable<Review>> GetByUserAsync(Guid userId)
+        public async Task<IEnumerable<Review>> GetByUserAsync(int userId)
         {
             return await _context.Set<Review>().Where(r => r.UserId == userId).ToListAsync();
         }
 
-        public async Task<Review?> GetByIdAsync(Guid reviewId)
+        public async Task<Review?> GetByIdAsync(int reviewId)
         {
             return await _context.Set<Review>().FirstOrDefaultAsync(r => r.ReviewId == reviewId);
         }
 
-        public async Task<bool> DeleteAsync(Guid reviewId)
+        public async Task<bool> DeleteAsync(int reviewId)
         {
             var review = await GetByIdAsync(reviewId);
             if (review == null) return false;

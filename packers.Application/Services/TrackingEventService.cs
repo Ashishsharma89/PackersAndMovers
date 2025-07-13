@@ -15,7 +15,7 @@ namespace packers.Application.Services
             _trackingEventRepository = trackingEventRepository;
         }
 
-        public async Task<IEnumerable<TrackingEvent>> GetTrackingEventsByShipmentIdAsync(Guid shipmentId)
+        public async Task<IEnumerable<TrackingEvent>> GetTrackingEventsByShipmentIdAsync(int shipmentId)
         {
             return await _trackingEventRepository.GetByShipmentIdAsync(shipmentId);
         }

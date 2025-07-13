@@ -22,7 +22,7 @@ namespace packers.API.Controllers
         {
             var trackingEvent = new TrackingEvent
             {
-                Id = Guid.NewGuid(),
+                Id = new Random().Next(1, int.MaxValue),
                 ShipmentId = dto.ShipmentId,
                 Timestamp = DateTime.UtcNow,
                 Latitude = dto.Latitude,
@@ -34,7 +34,7 @@ namespace packers.API.Controllers
         }
 
         [HttpGet("shipment/{shipmentId}")]
-        public async Task<IActionResult> GetTrackingEventsByShipment(Guid shipmentId)
+        public async Task<IActionResult> GetTrackingEventsByShipment(int shipmentId)
         {
             var events = await _trackingEventService.GetTrackingEventsByShipmentIdAsync(shipmentId);
             return Ok(events);

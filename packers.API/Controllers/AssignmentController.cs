@@ -24,7 +24,7 @@ namespace packers.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(Guid id)
+        public async Task<IActionResult> GetById(int id)
         {
             var assignment = await _assignmentService.GetAssignmentByIdAsync(id);
             if (assignment == null) return NotFound();
@@ -39,7 +39,7 @@ namespace packers.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, [FromBody] Assignment assignment)
+        public async Task<IActionResult> Update(int id, [FromBody] Assignment assignment)
         {
             if (id != assignment.Id) return BadRequest();
             var updated = await _assignmentService.UpdateAssignmentAsync(assignment);
@@ -47,28 +47,28 @@ namespace packers.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete(int id)
         {
             await _assignmentService.DeleteAssignmentAsync(id);
             return NoContent();
         }
 
         [HttpGet("by-driver/{driverId}")]
-        public async Task<IActionResult> GetByDriverId(Guid driverId)
+        public async Task<IActionResult> GetByDriverId(int driverId)
         {
             var assignments = await _assignmentService.GetAssignmentsByDriverIdAsync(driverId);
             return Ok(assignments);
         }
 
         [HttpGet("by-truck/{truckId}")]
-        public async Task<IActionResult> GetByTruckId(Guid truckId)
+        public async Task<IActionResult> GetByTruckId(int truckId)
         {
             var assignments = await _assignmentService.GetAssignmentsByTruckIdAsync(truckId);
             return Ok(assignments);
         }
 
         [HttpGet("by-move-request/{moveRequestId}")]
-        public async Task<IActionResult> GetByMoveRequestId(Guid moveRequestId)
+        public async Task<IActionResult> GetByMoveRequestId(int moveRequestId)
         {
             var assignments = await _assignmentService.GetAssignmentsByMoveRequestIdAsync(moveRequestId);
             return Ok(assignments);

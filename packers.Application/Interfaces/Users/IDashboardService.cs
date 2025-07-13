@@ -16,7 +16,7 @@ namespace packers.Application.Interfaces.Users
 
     public class TopCustomerDto
     {
-        public Guid CustomerId { get; set; }
+        public int CustomerId { get; set; }
         public string CustomerName { get; set; } = string.Empty;
         public int OrderCount { get; set; }
         public decimal TotalSpent { get; set; }

@@ -7,13 +7,13 @@ namespace packers.Application.Interfaces.Users
 {
     public interface IShipmentService
     {
-        Task<Shipment?> GetShipmentByIdAsync(Guid id);
-        Task<IEnumerable<Shipment>> GetShipmentsByUserIdAsync(Guid userId);
-        Task<IEnumerable<Shipment>> GetShipmentsByDriverIdAsync(Guid driverId);
+        Task<Shipment?> GetShipmentByIdAsync(int id);
+        Task<IEnumerable<Shipment>> GetShipmentsByUserIdAsync(int userId);
+        Task<IEnumerable<Shipment>> GetShipmentsByDriverIdAsync(int driverId);
         Task CreateShipmentAsync(Shipment shipment);
         Task UpdateShipmentAsync(Shipment shipment);
-        Task DeleteShipmentAsync(Guid id);
-        Task ConfirmDeliveryAsync(Guid shipmentId);
-        Task<DateTime?> GetEstimatedArrivalAsync(Guid shipmentId);
+        Task DeleteShipmentAsync(int id);
+        Task ConfirmDeliveryAsync(int shipmentId);
+        Task<DateTime?> GetEstimatedArrivalAsync(int shipmentId);
     }
 } 

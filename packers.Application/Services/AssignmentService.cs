@@ -15,7 +15,7 @@ namespace packers.Application.Services
             _assignmentRepository = assignmentRepository;
         }
 
-        public async Task<Assignment?> GetAssignmentByIdAsync(Guid id)
+        public async Task<Assignment?> GetAssignmentByIdAsync(int id)
         {
             return await _assignmentRepository.GetByIdAsync(id);
         }
@@ -27,7 +27,7 @@ namespace packers.Application.Services
 
         public async Task<Assignment> CreateAssignmentAsync(Assignment assignment)
         {
-            assignment.Id = Guid.NewGuid();
+            assignment.Id = new Random().Next(1, int.MaxValue); // Generate a random positive integer for the ID
             assignment.Status = "Assigned";
             assignment.PickupTime = DateTime.UtcNow;
             return await _assignmentRepository.AddAsync(assignment);
@@ -38,22 +38,22 @@ namespace packers.Application.Services
             return await _assignmentRepository.UpdateAsync(assignment);
         }
 
-        public async Task DeleteAssignmentAsync(Guid id)
+        public async Task DeleteAssignmentAsync(int id)
         {
             await _assignmentRepository.DeleteAsync(id);
         }
 
-        public async Task<IEnumerable<Assignment>> GetAssignmentsByDriverIdAsync(Guid driverId)
+        public async Task<IEnumerable<Assignment>> GetAssignmentsByDriverIdAsync(int driverId)
         {
             return await _assignmentRepository.GetByDriverIdAsync(driverId);
         }
 
-        public async Task<IEnumerable<Assignment>> GetAssignmentsByTruckIdAsync(Guid truckId)
+        public async Task<IEnumerable<Assignment>> GetAssignmentsByTruckIdAsync(int truckId)
         {
             return await _assignmentRepository.GetByTruckIdAsync(truckId);
         }
 
-        public async Task<IEnumerable<Assignment>> GetAssignmentsByMoveRequestIdAsync(Guid moveRequestId)
+        public async Task<IEnumerable<Assignment>> GetAssignmentsByMoveRequestIdAsync(int moveRequestId)
         {
             return await _assignmentRepository.GetByMoveRequestIdAsync(moveRequestId);
         }

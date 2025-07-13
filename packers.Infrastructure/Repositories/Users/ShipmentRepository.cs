@@ -17,7 +17,7 @@ namespace packers.Infrastructure.Repositories.Users
             _context = context;
         }
 
-        public async Task<Shipment?> GetByIdAsync(Guid id)
+        public async Task<Shipment?> GetByIdAsync(int id)
         {
             return await _context.Shipments.FindAsync(id);
         }
@@ -39,7 +39,7 @@ namespace packers.Infrastructure.Repositories.Users
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(int id)
         {
             var shipment = await _context.Shipments.FindAsync(id);
             if (shipment != null)
@@ -49,12 +49,12 @@ namespace packers.Infrastructure.Repositories.Users
             }
         }
 
-        public async Task<IEnumerable<Shipment>> GetByUserIdAsync(Guid userId)
+        public async Task<IEnumerable<Shipment>> GetByUserIdAsync(int userId)
         {
             return await _context.Shipments.Where(s => s.UserId == userId).ToListAsync();
         }
 
-        public async Task<IEnumerable<Shipment>> GetByDriverIdAsync(Guid driverId)
+        public async Task<IEnumerable<Shipment>> GetByDriverIdAsync(int driverId)
         {
             return await _context.Shipments.Where(s => s.DriverId == driverId).ToListAsync();
         }

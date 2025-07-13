@@ -17,12 +17,12 @@ namespace packers.Infrastructure.Repositories.Users
             _context = context;
         }
 
-        public async Task<TrackingEvent?> GetByIdAsync(Guid id)
+        public async Task<TrackingEvent?> GetByIdAsync(int id)
         {
             return await _context.TrackingEvents.FindAsync(id);
         }
 
-        public async Task<IEnumerable<TrackingEvent>> GetByShipmentIdAsync(Guid shipmentId)
+        public async Task<IEnumerable<TrackingEvent>> GetByShipmentIdAsync(int shipmentId)
         {
             return await _context.TrackingEvents.Where(e => e.ShipmentId == shipmentId).ToListAsync();
         }

@@ -22,7 +22,7 @@ namespace packers.Infrastructure.Repositories.Users
             return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
 
-        public async Task<User?> GetByIdAsync(Guid id)
+        public async Task<User?> GetByIdAsync(int id)
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
         }
@@ -46,7 +46,7 @@ namespace packers.Infrastructure.Repositories.Users
             return user;
         }
 
-        public async Task<bool> DeleteAsync(Guid id)
+        public async Task<bool> DeleteAsync(int id)
         {
             var user = await GetByIdAsync(id);
             if (user != null)

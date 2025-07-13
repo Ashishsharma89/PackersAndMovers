@@ -24,7 +24,7 @@ namespace packers.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(Guid id)
+        public async Task<IActionResult> GetById(int id)
         {
             var truck = await _truckService.GetTruckByIdAsync(id);
             if (truck == null) return NotFound();
@@ -39,7 +39,7 @@ namespace packers.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, [FromBody] Truck truck)
+        public async Task<IActionResult> Update(int id, [FromBody] Truck truck)
         {
             if (id != truck.Id) return BadRequest();
             var updated = await _truckService.UpdateTruckAsync(truck);
@@ -47,7 +47,7 @@ namespace packers.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete(int id)
         {
             await _truckService.DeleteTruckAsync(id);
             return NoContent();

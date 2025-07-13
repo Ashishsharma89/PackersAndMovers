@@ -9,8 +9,8 @@ namespace packers.Application.Interfaces.Users
     {
         Task<ReviewDto> AddReviewAsync(CreateReviewDto dto);
         Task<IEnumerable<ReviewDto>> GetReviewsByTargetAsync(int targetId, ReviewTargetType targetType);
-        Task<IEnumerable<ReviewDto>> GetReviewsByUserAsync(Guid userId);
-        Task<bool> DeleteReviewAsync(Guid reviewId);
-        Task<bool> UpdateReviewAsync(Guid reviewId, CreateReviewDto dto);
+        Task<IEnumerable<ReviewDto>> GetReviewsByUserAsync(int userId);
+        Task<bool> DeleteReviewAsync(int reviewId);
+        Task<bool> UpdateReviewAsync(int reviewId, CreateReviewDto dto);
     }
 } 

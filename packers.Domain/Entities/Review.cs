@@ -11,8 +11,8 @@ namespace packers.Domain.Entities
 
     public class Review
     {
-        public Guid ReviewId { get; set; }
-        public Guid UserId { get; set; }
+        public int ReviewId { get; set; }
+        public int UserId { get; set; }
         public string UserName { get; set; } = string.Empty;
         public int TargetId { get; set; }
         public ReviewTargetType TargetType { get; set; }

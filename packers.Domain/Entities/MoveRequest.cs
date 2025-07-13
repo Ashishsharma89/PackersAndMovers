@@ -4,7 +4,7 @@ namespace packers.Domain.Entities
 {
     public class MoveRequest
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string SourceAddress { get; set; } = string.Empty;
         public string DestinationAddress { get; set; } = string.Empty;
         public DateTime MoveDate { get; set; }
@@ -15,6 +15,6 @@ namespace packers.Domain.Entities
         public string PhoneNumber { get; set; } = string.Empty;
         public string? ValueAddedServices { get; set; }
         public string? SelectedServices { get; set; }
-        public Guid UserId { get; set; }
+        public int UserId { get; set; }
     }
 } 

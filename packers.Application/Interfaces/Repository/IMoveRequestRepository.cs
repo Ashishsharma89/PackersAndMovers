@@ -11,7 +11,7 @@ namespace packers.Application.Interfaces.Repository
         Task<MoveRequest> UpdateAsync(MoveRequest moveRequest);
         Task DeleteAsync(int id);
         Task<MoveRequest?> GetByIdAsync(int id);
-        Task<List<MoveRequest>> GetByUserIdAsync(Guid userId);
+        Task<List<MoveRequest>> GetByUserIdAsync(int userId);
         Task<List<MoveRequest>> GetAllAsync();
     }
 } 

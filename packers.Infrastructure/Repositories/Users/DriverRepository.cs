@@ -17,7 +17,7 @@ namespace packers.Infrastructure.Repositories.Users
             _context = context;
         }
 
-        public async Task<Driver?> GetByIdAsync(Guid id)
+        public async Task<Driver?> GetByIdAsync(int id)
         {
             return await _context.Drivers.FindAsync(id);
         }
@@ -39,7 +39,7 @@ namespace packers.Infrastructure.Repositories.Users
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(int id)
         {
             var driver = await _context.Drivers.FindAsync(id);
             if (driver != null)
@@ -49,7 +49,7 @@ namespace packers.Infrastructure.Repositories.Users
             }
         }
 
-        public async Task UpdateLocationAsync(Guid driverId, double latitude, double longitude)
+        public async Task UpdateLocationAsync(int driverId, double latitude, double longitude)
         {
             var driver = await _context.Drivers.FindAsync(driverId);
             if (driver != null)

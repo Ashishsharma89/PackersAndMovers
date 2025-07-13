@@ -120,7 +120,7 @@ namespace packers.Application.Services
             };
         }
 
-        public async Task<bool> ChangePasswordAsync(Guid userId, string currentPassword, string newPassword)
+        public async Task<bool> ChangePasswordAsync(int userId, string currentPassword, string newPassword)
         {
             var user = await _userRepository.GetByIdAsync(userId);
             if (user == null)

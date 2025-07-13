@@ -17,7 +17,7 @@ namespace packers.Infrastructure.Repositories.Users
             _context = context;
         }
 
-        public async Task<Assignment?> GetByIdAsync(Guid id)
+        public async Task<Assignment?> GetByIdAsync(int id)
         {
             return await _context.Assignments.FindAsync(id);
         }
@@ -41,7 +41,7 @@ namespace packers.Infrastructure.Repositories.Users
             return assignment;
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(int id)
         {
             var assignment = await _context.Assignments.FindAsync(id);
             if (assignment != null)
@@ -51,17 +51,17 @@ namespace packers.Infrastructure.Repositories.Users
             }
         }
 
-        public async Task<IEnumerable<Assignment>> GetByDriverIdAsync(Guid driverId)
+        public async Task<IEnumerable<Assignment>> GetByDriverIdAsync(int driverId)
         {
             return await _context.Assignments.Where(a => a.DriverId == driverId).ToListAsync();
         }
 
-        public async Task<IEnumerable<Assignment>> GetByTruckIdAsync(Guid truckId)
+        public async Task<IEnumerable<Assignment>> GetByTruckIdAsync(int truckId)
         {
             return await _context.Assignments.Where(a => a.TruckId == truckId).ToListAsync();
         }
 
-        public async Task<IEnumerable<Assignment>> GetByMoveRequestIdAsync(Guid moveRequestId)
+        public async Task<IEnumerable<Assignment>> GetByMoveRequestIdAsync(int moveRequestId)
         {
             return await _context.Assignments.Where(a => a.MoveRequestId == moveRequestId).ToListAsync();
         }

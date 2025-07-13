@@ -4,7 +4,7 @@ namespace packers.Application.DTOs
 {
     public class TruckDto
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string TruckNumber { get; set; } = string.Empty;
         public string Model { get; set; } = string.Empty;
         public int Capacity { get; set; }

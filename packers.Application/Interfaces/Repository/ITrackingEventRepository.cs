@@ -7,8 +7,8 @@ namespace packers.Application.Interfaces.Repository
 {
     public interface ITrackingEventRepository
     {
-        Task<TrackingEvent?> GetByIdAsync(Guid id);
-        Task<IEnumerable<TrackingEvent>> GetByShipmentIdAsync(Guid shipmentId);
+        Task<TrackingEvent?> GetByIdAsync(int id);
+        Task<IEnumerable<TrackingEvent>> GetByShipmentIdAsync(int shipmentId);
         Task AddAsync(TrackingEvent trackingEvent);
         Task<IEnumerable<TrackingEvent>> GetAllAsync();
     }

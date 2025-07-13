@@ -15,7 +15,7 @@ namespace packers.Application.Services
             _userRepository = userRepository;
         }
 
-        public async Task<User> GetUserByIdAsync(Guid userId)
+        public async Task<User> GetUserByIdAsync(int userId)
         {
             var user = await _userRepository.GetByIdAsync(userId);
             if (user == null)
@@ -44,7 +44,7 @@ namespace packers.Application.Services
             }
         }
 
-        public async Task<bool> DeleteUserAsync(Guid userId)
+        public async Task<bool> DeleteUserAsync(int userId)
         {
             try
             {
