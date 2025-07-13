@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using Packer.Domain.Entities;
-using Packer.Application.Interfaces.Repository;
-using Packer.Infrastructure.Data;
+using packers.Domain.Entities;
+using packers.Application.Interfaces.Repository;
+using packers.Infrastructure.Data;
 
-namespace Packer.Infrastructure.Repositories.Users
+namespace packers.Infrastructure.Repositories.Users
 {
     public class ResetTokenRepository : IResetTokenRepository
     {
@@ -28,14 +28,14 @@ namespace Packer.Infrastructure.Repositories.Users
             return user;
         }
 
-        public async Task<User> GetUserByValidTokenAsync(string email, string token)
+        public async Task<User?> GetUserByValidTokenAsync(string email, string token)
         {
-            return await _context.Users
-                .FirstOrDefaultAsync(u => 
-                    u.Email == email && 
-                    u.ResetToken == token && 
-                    !u.IsResetTokenUsed && 
-                    u.ResetTokenExpiry > DateTime.UtcNow);
+            var user = await _context.Users.FirstOrDefaultAsync(u => 
+                u.Email == email && 
+                u.ResetToken == token && 
+                u.ResetTokenExpiry > DateTime.UtcNow && 
+                !u.IsResetTokenUsed);
+            return user;
         }
 
         public async Task MarkTokenAsUsedAsync(string email, string token)

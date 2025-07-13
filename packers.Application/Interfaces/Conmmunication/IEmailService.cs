@@ -1,4 +1,6 @@
-namespace Packer.Application.Interfaces.Conmmunication
+using System.Threading.Tasks;
+
+namespace packers.Application.Interfaces.Conmmunication
 {
     public class EmailMessage
     {

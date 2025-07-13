@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Packer.Domain.Entities;
+using packers.Domain.Entities;
 
-namespace Packer.Infrastructure.Data.DataContext.TableConfig;
+namespace packers.Infrastructure.Data.DataContext.TableConfig;
 
 public class UserConfig : IEntityTypeConfiguration<User>
 {

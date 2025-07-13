@@ -1,6 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using packers.Infrastructure.Data;
+using packers.Application.Interfaces.Repository;
+using packers.Domain.Entities;
 
-
-namespace Packer.Infrastructure.Repositories.Users
+namespace packers.Infrastructure.Repositories.Users
 {
     public class UserRepository : IUserRepository
     {
@@ -16,7 +22,7 @@ namespace Packer.Infrastructure.Repositories.Users
             return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
 
-        public async Task<User?> GetByIdAsync(int id)
+        public async Task<User?> GetByIdAsync(Guid id)
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
         }
@@ -40,14 +46,16 @@ namespace Packer.Infrastructure.Repositories.Users
             return user;
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
             var user = await GetByIdAsync(id);
             if (user != null)
             {
                 _context.Users.Remove(user);
                 await _context.SaveChangesAsync();
+                return true;
             }
+            return false;
         }
     }
 }

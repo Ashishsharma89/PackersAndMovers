@@ -1,6 +1,6 @@
-﻿using Packer.Application.DTOs;
+﻿using packers.Application.DTOs;
 
-namespace Packer.Application.Interfaces.PasswordHashing
+namespace packers.Application.Interfaces.PasswordHashing
 {
     public interface IPasswordService
     {

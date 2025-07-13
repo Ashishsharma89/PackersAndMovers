@@ -1,0 +1,14 @@
+using System;
+
+namespace packers.Application.DTOs
+{
+    public class TrackingEventDto
+    {
+        public Guid Id { get; set; }
+        public Guid ShipmentId { get; set; }
+        public DateTime Timestamp { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+        public string Status { get; set; } = string.Empty;
+    }
+} 

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using packers.Application.DTOs;
 using packers.Application.Interfaces.Repository;
 using packers.Application.Interfaces.Users;
-using Packer.Domain.Entities;
+using packers.Domain.Entities;
 using System;
 using System.Linq;
 
@@ -26,7 +26,7 @@ namespace packers.Application.Services
             return Task.FromResult(price);
         }
 
-        public async Task<MoveRequest> CreateMoveAsync(MoveRequestDto dto, int userId)
+        public async Task<MoveRequest> CreateMoveAsync(MoveRequestDto dto, Guid userId)
         {
             var price = await GetInstantQuoteAsync(dto);
             var move = new MoveRequest
@@ -36,7 +36,7 @@ namespace packers.Application.Services
                 DestinationAddress = dto.DestinationAddress,
                 MoveDate = dto.MoveDate,
                 MoveTime = dto.MoveTime,
-                Items = string.Join(",", dto.Items),
+                Items = string.Join(",", dto.Items ?? new List<string>()),
                 Status = "Pending",
                 EstimatedPrice = price,
                 PhoneNumber = dto.PhoneNumber,
@@ -46,34 +46,36 @@ namespace packers.Application.Services
             return await _moveRequestRepository.AddAsync(move);
         }
 
-        public Task<List<MoveRequest>> GetUserMovesAsync(int userId)
+        public Task<List<MoveRequest>> GetUserMovesAsync(Guid userId)
         {
             return _moveRequestRepository.GetByUserIdAsync(userId);
         }
 
-        public async Task<MoveRequest> GetMoveByIdAsync(int id, int userId)
+        public async Task<MoveRequest?> GetMoveByIdAsync(int id, Guid userId)
         {
             var move = await _moveRequestRepository.GetByIdAsync(id);
-            if (move == null || move.UserId != userId) return null;
-            return move;
+            return move?.UserId == userId ? move : null;
         }
 
-        public async Task<MoveRequest> UpdateMoveAsync(int id, MoveRequestDto dto, int userId)
+        public async Task<MoveRequest?> UpdateMoveAsync(int id, MoveRequestDto dto, Guid userId)
         {
             var move = await _moveRequestRepository.GetByIdAsync(id);
-            if (move == null || move.UserId != userId) return null;
+            if (move?.UserId != userId) return null;
+            
+            // Update properties
             move.SourceAddress = dto.SourceAddress;
             move.DestinationAddress = dto.DestinationAddress;
             move.MoveDate = dto.MoveDate;
             move.MoveTime = dto.MoveTime;
-            move.Items = string.Join(",", dto.Items);
+            move.Items = string.Join(",", dto.Items ?? new List<string>());
             move.PhoneNumber = dto.PhoneNumber;
             move.ValueAddedServices = dto.ValueAddedServices != null ? string.Join(",", dto.ValueAddedServices) : null;
             move.SelectedServices = dto.SelectedServices != null ? string.Join(",", dto.SelectedServices) : null;
+            
             return await _moveRequestRepository.UpdateAsync(move);
         }
 
-        public async Task DeleteMoveAsync(int id, int userId)
+        public async Task DeleteMoveAsync(int id, Guid userId)
         {
             var move = await _moveRequestRepository.GetByIdAsync(id);
             if (move != null && move.UserId == userId)

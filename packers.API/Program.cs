@@ -1,8 +1,8 @@
-using Packer.Application.Config;
-using Packer.Application.Interfaces.Conmmunication;
-using Packer.Infrastructure.Data;
-using Packer.Infrastructure.DIConfiguration;
-using Packer.Infrastructure.Services.Communication;
+using packers.Application.Config;
+using packers.Application.Interfaces.Conmmunication;
+using packers.Infrastructure.Data;
+using packers.Infrastructure.DIConfiguration;
+using packers.Infrastructure.Services.Communication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -70,7 +70,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 // Configure Email Service
 var emailSettings = builder.Configuration.GetSection("EmailSettings");
-builder.Services.Configure<EmailConfig>(emailSettings);
+builder.Services.Configure<packers.Infrastructure.Config.EmailConfig>(emailSettings);
 builder.Services.AddScoped<IEmailService, EmailService>();
 
 // Configure Database
@@ -78,6 +78,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddInfrastructure(builder.Configuration);
+
+// Add SignalR
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -92,5 +95,8 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+
+// Map SignalR hub endpoint
+app.MapHub<packers.API.Hubs.LocationHub>("/locationHub");
 
 app.Run();

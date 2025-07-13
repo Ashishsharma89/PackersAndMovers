@@ -1,12 +1,14 @@
-namespace Packer.Domain.Entities
+using System;
+
+namespace packers.Domain.Entities
 {
     public class User
     {
-        public int Id { get; set; }
-        public string Email { get; set; }
-        public string PasswordHash { get; set; }
-        public string Name { get; set; }
-        public string Role { get; set; } // "User" or "Admin"
+        public Guid Id { get; set; }
+        public string Email { get; set; } = string.Empty;
+        public string PasswordHash { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
+        public string Role { get; set; } = "User"; // "User" or "Admin"
         public int Age { get; set; }
         public bool IsVerified { get; set; } = false;
 
@@ -14,6 +16,9 @@ namespace Packer.Domain.Entities
         public string? ResetToken { get; set; }
         public DateTime? ResetTokenExpiry { get; set; }
         public bool IsResetTokenUsed { get; set; }
+
+        // Device token for push notifications
+        public string? DeviceToken { get; set; }
 
         public User()
         {
@@ -24,6 +29,8 @@ namespace Packer.Domain.Entities
             Name = $"{firstName} {lastName}";
             Email = email;
             Age = age;
+            Role = "User";
+            PasswordHash = string.Empty; // Will be set separately
         }
 
         public string GetFullName()

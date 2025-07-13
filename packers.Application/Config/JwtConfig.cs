@@ -1,4 +1,4 @@
-namespace Packer.Application.Config
+namespace packers.Application.Config
 {
     public class JwtConfig
     {

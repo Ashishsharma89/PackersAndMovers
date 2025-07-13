@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Packer.Application.DTOs;
+using packers.Application.DTOs;
 using System.Security.Claims;
-using Packer.Application.Interfaces.Auth;
-using Packer.Application.Interfaces.Conmmunication;
-using Packer.Domain.Entities;
+using packers.Application.Interfaces.Auth;
+using packers.Application.Interfaces.Conmmunication;
+using packers.Domain.Entities;
 
-namespace Packer.API.Controllers
+namespace packers.API.Controllers
 {
     [ApiController]
     [Route("api/auth")]
@@ -28,7 +28,7 @@ namespace Packer.API.Controllers
                 return BadRequest("Email already exists.");
             var user = new User
             {
-                Id = InMemoryDb.Users.Count + 1,
+                Id = Guid.NewGuid(),
                 Email = dto.Email,
                 PasswordHash = dto.Password, // Hash in real app!
                 Name = dto.Name,
@@ -67,8 +67,8 @@ namespace Packer.API.Controllers
         {
             try
             {
-                var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
-                if (userId == 0)
+                var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? Guid.Empty.ToString());
+                if (userId == Guid.Empty)
                     return Unauthorized();
 
                 var result = await _authService.ChangePasswordAsync(userId, request.CurrentPassword, request.NewPassword);

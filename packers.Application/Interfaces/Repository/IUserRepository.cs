@@ -1,12 +1,15 @@
-using Packer.Domain.Entities;
+using packers.Domain.Entities;
+using System;
+using System.Threading.Tasks;
 
-namespace Packer.Application.Interfaces.Repository
+namespace packers.Application.Interfaces.Repository
 {
     public interface IUserRepository
     {
         Task<User> AddAsync(User user);
         Task<User?> GetByEmailAsync(string email);
-        Task<User?> GetByIdAsync(int id);
+        Task<User?> GetByIdAsync(Guid id);
         Task<User> UpdateAsync(User user);
+        Task<bool> DeleteAsync(Guid id);
     }
 }

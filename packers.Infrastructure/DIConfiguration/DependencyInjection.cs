@@ -1,18 +1,18 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Packer.Application.Services;
-using Packer.Application.Interfaces.Repository;
-using Packer.Infrastructure.Repositories.Users;
-using Packer.Application.Interfaces.Auth;
-using Packer.Application.Interfaces.Conmmunication;
-using Packer.Infrastructure.Services.Communication;
-using Packer.Application.Interfaces.Users;
+using packers.Application.Services;
 using packers.Application.Interfaces.Repository;
 using packers.Infrastructure.Repositories.Users;
+using packers.Application.Interfaces.Auth;
+using packers.Application.Interfaces.Conmmunication;
+using packers.Infrastructure.Services.Communication;
 using packers.Application.Interfaces.Users;
 using packers.Application.Services;
+using packers.Infrastructure.Config;
 
-namespace Packer.Infrastructure.DIConfiguration
+
+
+namespace packers.Infrastructure.DIConfiguration
 {
     public static class DependencyInjection
     {
@@ -24,6 +24,24 @@ namespace Packer.Infrastructure.DIConfiguration
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IMoveRequestRepository, MoveRequestRepository>();
             services.AddScoped<IMoveService, MoveService>();
+            services.AddScoped<IShipmentRepository, ShipmentRepository>();
+            services.AddScoped<ITrackingEventRepository, TrackingEventRepository>();
+            services.AddScoped<IDriverRepository, DriverRepository>();
+            services.AddScoped<IShipmentService, ShipmentService>();
+            services.AddScoped<ITrackingEventService, TrackingEventService>();
+            services.AddScoped<IDriverService, DriverService>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<ITruckRepository, TruckRepository>();
+            services.AddScoped<ITruckService, TruckService>();
+            services.AddScoped<IAssignmentRepository, AssignmentRepository>();
+            services.AddScoped<IAssignmentService, AssignmentService>();
+            services.AddScoped<IUserServices, UserServices>();
+            services.AddScoped<IDashboardService, DashboardService>();
+
+            // Register FCM config and service
+            services.Configure<FcmConfig>(configuration.GetSection("FcmSettings"));
+            services.AddSingleton<FcmService>();
 
             return services;
         }

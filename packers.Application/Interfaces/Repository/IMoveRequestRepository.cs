@@ -1,4 +1,5 @@
-using Packer.Domain.Entities;
+using packers.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,8 +10,8 @@ namespace packers.Application.Interfaces.Repository
         Task<MoveRequest> AddAsync(MoveRequest moveRequest);
         Task<MoveRequest> UpdateAsync(MoveRequest moveRequest);
         Task DeleteAsync(int id);
-        Task<MoveRequest> GetByIdAsync(int id);
-        Task<List<MoveRequest>> GetByUserIdAsync(int userId);
+        Task<MoveRequest?> GetByIdAsync(int id);
+        Task<List<MoveRequest>> GetByUserIdAsync(Guid userId);
         Task<List<MoveRequest>> GetAllAsync();
     }
 } 

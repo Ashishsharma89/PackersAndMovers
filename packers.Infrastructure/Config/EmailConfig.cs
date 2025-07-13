@@ -1,4 +1,4 @@
-namespace Packer.Application.Config
+namespace packers.Infrastructure.Config
 {
     public class EmailConfig
     {

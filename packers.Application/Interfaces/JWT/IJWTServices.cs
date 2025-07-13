@@ -1,6 +1,7 @@
-﻿using Packer.Domain.Entities;
+﻿using packers.Domain.Entities;
+using System;
 
-namespace Packer.Application.Interfaces.JWT
+namespace packers.Application.Interfaces.JWT
 {
     public interface IJWTServices
     {

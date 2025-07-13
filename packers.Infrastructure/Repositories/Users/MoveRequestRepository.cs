@@ -1,10 +1,11 @@
 using packers.Application.Interfaces.Repository;
-using Packer.Domain.Entities;
-using Packer.Infrastructure.Data;
+using packers.Domain.Entities;
+using packers.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using System;
 
 namespace packers.Infrastructure.Repositories.Users
 {
@@ -40,12 +41,12 @@ namespace packers.Infrastructure.Repositories.Users
             }
         }
 
-        public async Task<MoveRequest> GetByIdAsync(int id)
+        public async Task<MoveRequest?> GetByIdAsync(int id)
         {
             return await _context.MoveRequests.FindAsync(id);
         }
 
-        public async Task<List<MoveRequest>> GetByUserIdAsync(int userId)
+        public async Task<List<MoveRequest>> GetByUserIdAsync(Guid userId)
         {
             return await _context.MoveRequests.Where(m => m.UserId == userId).ToListAsync();
         }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Packer.Application.Interfaces.Repository
+namespace packers.Application.Interfaces.Repository
 {
     public interface IUnitOfWork
     {

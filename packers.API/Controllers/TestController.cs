@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Packer.Domain.Entities;
-using Packer.Application.Interfaces.Repository;
+using packers.Domain.Entities;
+using packers.Application.Interfaces.Repository;
 using System.Security.Cryptography;
 
 namespace Packer.API.Controllers

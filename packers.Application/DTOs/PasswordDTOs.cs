@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Packer.Application.DTOs
+namespace packers.Application.DTOs
 {
     public class ChangePasswordDto
     {
@@ -31,15 +31,5 @@ namespace Packer.Application.DTOs
         [Required]
         [MinLength(6)]
         public string NewPassword { get; set; } = string.Empty;
-    }
-
-    public class VerifyOtpDto
-    {
-        [Required]
-        [EmailAddress]
-        public string Email { get; set; } = string.Empty;
-
-        [Required]
-        public string Otp { get; set; } = string.Empty;
     }
 } 

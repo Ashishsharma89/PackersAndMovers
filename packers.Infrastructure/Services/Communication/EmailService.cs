@@ -1,10 +1,10 @@
 using System.Net;
 using System.Net.Mail;
-using Packer.Application.Config;
-using Packer.Application.Interfaces.Conmmunication;
+using packers.Application.Config;
+using packers.Application.Interfaces.Conmmunication;
 using Microsoft.Extensions.Options;
 
-namespace Packer.Infrastructure.Services.Communication
+namespace packers.Infrastructure.Services.Communication
 {
     public class EmailService : IEmailService
     {

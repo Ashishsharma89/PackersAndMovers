@@ -2,16 +2,16 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Security.Cryptography;
-using Packer.Application.Config;
-using Packer.Domain.Entities;
-using Packer.Application.DTOs;
+using packers.Application.Config;
+using packers.Domain.Entities;
+using packers.Application.DTOs;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Packer.Application.Interfaces.Auth;
-using Packer.Application.Interfaces.Repository;
-using Packer.Application.Interfaces.Conmmunication;
+using packers.Application.Interfaces.Auth;
+using packers.Application.Interfaces.Repository;
+using packers.Application.Interfaces.Conmmunication;
 
-namespace Packer.Application.Services
+namespace packers.Application.Services
 {
     public class AuthService : IAuthService
     {
@@ -120,7 +120,7 @@ namespace Packer.Application.Services
             };
         }
 
-        public async Task<bool> ChangePasswordAsync(int userId, string currentPassword, string newPassword)
+        public async Task<bool> ChangePasswordAsync(Guid userId, string currentPassword, string newPassword)
         {
             var user = await _userRepository.GetByIdAsync(userId);
             if (user == null)
