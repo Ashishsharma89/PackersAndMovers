@@ -1,12 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using packers.Application.Interfaces.Repository;
-using packers.Domain.Entities;
-using packers.Infrastructure.Data;
-
 namespace packers.Infrastructure.Repositories.Users
 {
     public class AssignmentRepository : IAssignmentRepository

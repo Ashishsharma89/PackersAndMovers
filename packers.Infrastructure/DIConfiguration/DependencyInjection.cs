@@ -1,14 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using packers.Application.Services;
-using packers.Application.Interfaces.Repository;
-using packers.Infrastructure.Repositories.Users;
-using packers.Application.Interfaces.Auth;
-using packers.Application.Interfaces.Conmmunication;
-using packers.Infrastructure.Services.Communication;
-using packers.Application.Interfaces.Users;
-using packers.Application.Services;
-using packers.Infrastructure.Config;
+﻿using Packer.Application.Interfaces.ML;
+using Packer.Application.Services;
 
 
 
@@ -38,6 +29,7 @@ namespace packers.Infrastructure.DIConfiguration
             services.AddScoped<IAssignmentService, AssignmentService>();
             services.AddScoped<IUserServices, UserServices>();
             services.AddScoped<IDashboardService, DashboardService>();
+            services.AddScoped<IPredictionService, PredictionService>();
 
             // Register FCM config and service
             services.Configure<FcmConfig>(configuration.GetSection("FcmSettings"));
