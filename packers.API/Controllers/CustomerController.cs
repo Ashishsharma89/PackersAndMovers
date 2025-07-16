@@ -39,10 +39,9 @@ namespace packers.API.Controllers
             return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] Customer customer)
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] Customer customer)
         {
-            if (id != customer.Id) return BadRequest();
             var updated = await _customerService.UpdateCustomerAsync(customer);
             return Ok(updated);
         }
