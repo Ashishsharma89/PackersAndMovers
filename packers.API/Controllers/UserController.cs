@@ -1,10 +1,19 @@
 using Microsoft.AspNetCore.Mvc;
+using Packer.Application.DTOs;
+using packers.Application.Interfaces.Users;
 using packers.Domain.Entities;
+using System.Net;
+using System.Threading.Tasks;
 
 [ApiController]
 [Route("api/user")]
 public class UserController : ControllerBase
 {
+    private readonly IUserServices _userService;
+    public UserController(IUserServices userService)
+    {
+        _userService = userService;
+    }
     [HttpGet("profile")]
     public IActionResult Profile([FromQuery] int userId)
     {
@@ -20,5 +29,15 @@ public class UserController : ControllerBase
         if (user == null) return NotFound();
         user.DeviceToken = deviceToken;
         return Ok(new { message = "Device token registered." });
+    }
+    [HttpPost("customer-form-submit")]
+    public async Task<IActionResult> CustomerFormSubmit([FromBody] CustomerFormSubmissionDto request)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        await _userService.CustomerFormSubmit(request);
+        return Ok(new { Success = true, StatusCode = HttpStatusCode.OK, Message  = "Form submitted Succesfully"});
     }
 } 

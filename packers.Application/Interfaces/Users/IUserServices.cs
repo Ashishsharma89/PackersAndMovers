@@ -1,6 +1,5 @@
-﻿using packers.Domain.Entities;
-using System;
-using System.Threading.Tasks;
+﻿using Packer.Application.DTOs;
+using packers.Domain.Entities;
 
 namespace packers.Application.Interfaces.Users
 {
@@ -10,5 +9,6 @@ namespace packers.Application.Interfaces.Users
         Task<User> GetUserByEmailAsync(string email);
         Task<bool> UpdateUserAsync(User user);
         Task<bool> DeleteUserAsync(int userId);
+        Task<bool> CustomerFormSubmit(CustomerFormSubmissionDto request);
     }
 }

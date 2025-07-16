@@ -1,9 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using packers.Application.DTOs; 
+using packers.Application.DTOs;
 using packers.Application.Interfaces.Users;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace packers.API.Controllers
 {

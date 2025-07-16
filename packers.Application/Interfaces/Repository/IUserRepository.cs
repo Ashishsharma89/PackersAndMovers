@@ -1,6 +1,5 @@
+using Packer.Application.DTOs;
 using packers.Domain.Entities;
-using System;
-using System.Threading.Tasks;
 
 namespace packers.Application.Interfaces.Repository
 {
@@ -11,5 +10,6 @@ namespace packers.Application.Interfaces.Repository
         Task<User?> GetByIdAsync(int id);
         Task<User> UpdateAsync(User user);
         Task<bool> DeleteAsync(int id);
+        Task<bool> CustomerFormSubmit(CustomerFormSubmissionDto request);
     }
 }

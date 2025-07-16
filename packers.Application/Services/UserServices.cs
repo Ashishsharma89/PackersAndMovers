@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Packer.Application.DTOs;
 using packers.Application.Interfaces.Repository;
 using packers.Application.Interfaces.Users;
 using packers.Domain.Entities;
@@ -55,6 +56,10 @@ namespace packers.Application.Services
             {
                 return false;
             }
+        }
+        public async Task<bool> CustomerFormSubmit(CustomerFormSubmissionDto request)
+        {
+            return await _userRepository.CustomerFormSubmit(request);
         }
     }
 } 

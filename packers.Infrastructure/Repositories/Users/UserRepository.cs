@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using packers.Infrastructure.Data;
-using packers.Application.Interfaces.Repository;
-using packers.Domain.Entities;
+using Packer.Application.DTOs;
+using Packer.Domain.Entities;
 
 namespace packers.Infrastructure.Repositories.Users
 {
@@ -56,6 +51,30 @@ namespace packers.Infrastructure.Repositories.Users
                 return true;
             }
             return false;
+        }
+
+        public async Task<bool> CustomerFormSubmit(CustomerFormSubmissionDto request)
+        {
+            var entity = new CustomerFormSubmissions
+            {
+                customer_name = request.CustomerName,
+                phone = request.Phone,
+                origin_location_name = request.OriginLocationName,
+                origin_location_lat = request.OriginLocationLat,
+                origin_location_long = request.OriginLocationLong,
+                destination_location_name = request.DestinationLocationName,
+                destination_location_lat = request.DestinationLocationLat,
+                destination_location_long = request.DestinationLocationLong,
+                distance_in_km = request.DistanceInKm,
+                items_json = request.ItemsJson,
+                urgency = request.Urgency,
+                estimated_price = request.EstimatedPrice, // Consider fixing spelling
+                delivery_status = request.DeliveryStatus
+            };
+
+            _context.CustomerFormSubmissions.Add(entity);
+            int affectedRows = await _context.SaveChangesAsync();
+            return affectedRows > 0;
         }
     }
 }

@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Packer.Domain.Entities;
 using packers.Domain.Entities;
 
 namespace packers.Infrastructure.Data
@@ -19,6 +20,7 @@ namespace packers.Infrastructure.Data
         public DbSet<Customer> Customers { get; set; } = null!;
         public DbSet<Truck> Trucks { get; set; } = null!;
         public DbSet<Assignment> Assignments { get; set; } = null!;
+        public DbSet<CustomerFormSubmissions> CustomerFormSubmissions { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
