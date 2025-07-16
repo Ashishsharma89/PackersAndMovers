@@ -17,8 +17,4 @@
     <ProjectReference Include="..\packers.Domain\Packer.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="MLModels\" />
-  </ItemGroup>
-
 </Project>
