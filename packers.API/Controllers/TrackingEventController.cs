@@ -22,7 +22,6 @@ namespace packers.API.Controllers
         {
             var trackingEvent = new TrackingEvent
             {
-                Id = new Random().Next(1, int.MaxValue),
                 ShipmentId = dto.ShipmentId,
                 Timestamp = DateTime.UtcNow,
                 Latitude = dto.Latitude,

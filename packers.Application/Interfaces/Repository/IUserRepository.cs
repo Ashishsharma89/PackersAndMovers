@@ -1,5 +1,6 @@
-using Packer.Application.DTOs;
 using packers.Domain.Entities;
+using System;
+using System.Threading.Tasks;
 
 namespace packers.Application.Interfaces.Repository
 {

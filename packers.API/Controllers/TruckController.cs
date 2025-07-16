@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using packers.Application.DTOs;
 using packers.Application.Interfaces.Users;
 using packers.Domain.Entities;
 using System;
@@ -32,7 +33,7 @@ namespace packers.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Truck truck)
+        public async Task<IActionResult> Create([FromBody] TruckDto truck)
         {
             var created = await _truckService.CreateTruckAsync(truck);
             return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);

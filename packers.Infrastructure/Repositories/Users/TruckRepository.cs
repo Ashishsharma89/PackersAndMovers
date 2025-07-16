@@ -1,11 +1,12 @@
+using Microsoft.EntityFrameworkCore;
+using packers.Application.DTOs;
+using packers.Application.Interfaces.Repository;
+using packers.Domain.Entities;
+using packers.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using packers.Application.Interfaces.Repository;
-using packers.Domain.Entities;
-using packers.Infrastructure.Data;
 
 namespace packers.Infrastructure.Repositories.Users
 {
@@ -27,8 +28,16 @@ namespace packers.Infrastructure.Repositories.Users
             return await _context.Trucks.ToListAsync();
         }
 
-        public async Task<Truck> AddAsync(Truck truck)
+        public async Task<Truck> AddAsync(TruckDto truckDto)
         {
+            var truck = new Truck
+            {
+                TruckNumber = truckDto.TruckNumber,
+                Model = truckDto.Model,
+                Capacity = truckDto.Capacity,
+                Status = truckDto.Status
+            };
+
             await _context.Trucks.AddAsync(truck);
             await _context.SaveChangesAsync();
             return truck;

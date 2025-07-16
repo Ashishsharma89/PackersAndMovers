@@ -1,3 +1,5 @@
+using packers.Application.DTOs;
+
 namespace packers.Infrastructure.Repositories.Users
 {
     public class AssignmentRepository : IAssignmentRepository
@@ -18,18 +20,35 @@ namespace packers.Infrastructure.Repositories.Users
             return await _context.Assignments.ToListAsync();
         }
 
-        public async Task<Assignment> AddAsync(Assignment assignment)
+        public async Task<Assignment> AddAsync(CreateAssignmentDto assignmentDto)
         {
+            var assignment = new Assignment
+            {
+                MoveRequestId = assignmentDto.MoveRequestId,
+                DriverId = assignmentDto.DriverId,
+                TruckId = assignmentDto.TruckId,
+                PickupTime = assignmentDto.PickupTime,
+                Status = assignmentDto.Status
+            };
+
             await _context.Assignments.AddAsync(assignment);
             await _context.SaveChangesAsync();
             return assignment;
         }
 
-        public async Task<Assignment> UpdateAsync(Assignment assignment)
+        public async Task<Assignment> UpdateAsync(CreateAssignmentDto assignmentDto)
         {
-            _context.Assignments.Update(assignment);
-            await _context.SaveChangesAsync();
-            return assignment;
+            var existingAssignment = await _context.Assignments.FindAsync(assignmentDto.MoveRequestId);
+            if (existingAssignment != null)
+            {
+                existingAssignment.DriverId = assignmentDto.DriverId;
+                existingAssignment.TruckId = assignmentDto.TruckId;
+                existingAssignment.PickupTime = assignmentDto.PickupTime;
+
+                _context.Assignments.Update(existingAssignment);
+                await _context.SaveChangesAsync();
+            }
+            return existingAssignment;
         }
 
         public async Task DeleteAsync(int id)

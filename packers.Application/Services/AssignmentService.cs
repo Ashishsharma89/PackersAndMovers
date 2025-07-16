@@ -1,9 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using packers.Application.DTOs;
 using packers.Application.Interfaces.Repository;
 using packers.Application.Interfaces.Users;
 using packers.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace packers.Application.Services
 {
@@ -25,15 +26,14 @@ namespace packers.Application.Services
             return await _assignmentRepository.GetAllAsync();
         }
 
-        public async Task<Assignment> CreateAssignmentAsync(Assignment assignment)
-        {
-            assignment.Id = new Random().Next(1, int.MaxValue); // Generate a random positive integer for the ID
+        public async Task<Assignment> CreateAssignmentAsync(CreateAssignmentDto assignment)
+        { // Generate a random positive integer for the ID
             assignment.Status = "Assigned";
             assignment.PickupTime = DateTime.UtcNow;
             return await _assignmentRepository.AddAsync(assignment);
         }
 
-        public async Task<Assignment> UpdateAssignmentAsync(Assignment assignment)
+        public async Task<Assignment> UpdateAssignmentAsync(CreateAssignmentDto assignment)
         {
             return await _assignmentRepository.UpdateAsync(assignment);
         }

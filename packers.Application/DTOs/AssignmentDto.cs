@@ -18,5 +18,6 @@ namespace packers.Application.DTOs
         public int DriverId { get; set; }
         public int TruckId { get; set; }
         public DateTime PickupTime { get; set; }
+        public string Status { get; set; } = string.Empty;
     }
 } 

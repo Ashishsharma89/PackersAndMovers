@@ -1,9 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using packers.Application.DTOs;
 using packers.Application.Interfaces.Repository;
 using packers.Application.Interfaces.Users;
 using packers.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace packers.Application.Services
 {
@@ -25,9 +26,8 @@ namespace packers.Application.Services
             return await _truckRepository.GetAllAsync();
         }
 
-        public async Task<Truck> CreateTruckAsync(Truck truck)
+        public async Task<Truck> CreateTruckAsync(TruckDto truck)
         {
-            truck.Id = new Random().Next(1, int.MaxValue); 
             truck.Status = "Available";
             return await _truckRepository.AddAsync(truck);
         }

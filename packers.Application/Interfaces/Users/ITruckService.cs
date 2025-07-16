@@ -1,7 +1,8 @@
+using packers.Application.DTOs;
+using packers.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using packers.Domain.Entities;
 
 namespace packers.Application.Interfaces.Users
 {
@@ -9,7 +10,7 @@ namespace packers.Application.Interfaces.Users
     {
         Task<Truck?> GetTruckByIdAsync(int id);
         Task<IEnumerable<Truck>> GetAllTrucksAsync();
-        Task<Truck> CreateTruckAsync(Truck truck);
+        Task<Truck> CreateTruckAsync(TruckDto truck);
         Task<Truck> UpdateTruckAsync(Truck truck);
         Task DeleteTruckAsync(int id);
         Task<Truck?> GetTruckByTruckNumberAsync(string truckNumber);

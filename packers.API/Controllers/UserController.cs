@@ -4,20 +4,25 @@ using packers.Application.Interfaces.Users;
 using packers.Domain.Entities;
 using System.Net;
 using System.Threading.Tasks;
+using packers.Infrastructure.Data;
 
 [ApiController]
 [Route("api/user")]
 public class UserController : ControllerBase
 {
     private readonly IUserServices _userService;
-    public UserController(IUserServices userService)
+    private readonly ApplicationDbContext _dbContext;
+
+    public UserController(ApplicationDbContext dbContext,IUserServices userService)
     {
+        _dbContext = dbContext;
         _userService = userService;
     }
+
     [HttpGet("profile")]
     public IActionResult Profile([FromQuery] int userId)
     {
-        var user = InMemoryDb.Users.FirstOrDefault(u => u.Id == userId);
+        var user = _dbContext.Users.FirstOrDefault(u => u.Id == userId);
         if (user == null) return NotFound();
         return Ok(new { user.Id, user.Email, user.Name, user.Role });
     }
@@ -25,9 +30,10 @@ public class UserController : ControllerBase
     [HttpPost("register-device-token")]
     public IActionResult RegisterDeviceToken([FromQuery] int userId, [FromBody] string deviceToken)
     {
-        var user = InMemoryDb.Users.FirstOrDefault(u => u.Id == userId);
+        var user = _dbContext.Users.FirstOrDefault(u => u.Id == userId);
         if (user == null) return NotFound();
         user.DeviceToken = deviceToken;
+        _dbContext.SaveChanges();
         return Ok(new { message = "Device token registered." });
     }
     [HttpPost("customer-form-submit")]

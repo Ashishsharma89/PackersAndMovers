@@ -19,8 +19,7 @@ namespace packers.Application.Services
         public async Task<ReviewDto> AddReviewAsync(CreateReviewDto dto)
         {
             var review = new Review
-            {
-                ReviewId = GenerateNewReviewId(), // Replace int.newInt() with a proper method to generate a new ID
+            { // Replace int.newInt() with a proper method to generate a new ID
                 UserId = dto.UserId,
                 TargetId = dto.TargetId,
                 TargetType = dto.TargetType,
@@ -30,13 +29,6 @@ namespace packers.Application.Services
             };
             var result = await _reviewRepository.AddAsync(review);
             return ToDto(result);
-        }
-
-        // Add a private method to generate a new ReviewId
-        private int GenerateNewReviewId()
-        {
-            // Example implementation: Generate a random positive integer
-            return new Random().Next(1, int.MaxValue);
         }
 
         public async Task<IEnumerable<ReviewDto>> GetReviewsByTargetAsync(int targetId, ReviewTargetType targetType)

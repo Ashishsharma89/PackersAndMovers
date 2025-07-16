@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using packers.Application.DTOs;
 using packers.Application.Interfaces.Users;
 using packers.Domain.Entities;
 using System;
@@ -32,16 +33,15 @@ namespace packers.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Assignment assignment)
+        public async Task<IActionResult> Create([FromBody] CreateAssignmentDto assignment)
         {
             var created = await _assignmentService.CreateAssignmentAsync(assignment);
             return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] Assignment assignment)
+        public async Task<IActionResult> Update(int id, [FromBody] CreateAssignmentDto assignment)
         {
-            if (id != assignment.Id) return BadRequest();
             var updated = await _assignmentService.UpdateAssignmentAsync(assignment);
             return Ok(updated);
         }

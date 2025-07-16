@@ -1,7 +1,8 @@
+using packers.Application.DTOs;
+using packers.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using packers.Domain.Entities;
 
 namespace packers.Application.Interfaces.Repository
 {
@@ -9,8 +10,8 @@ namespace packers.Application.Interfaces.Repository
     {
         Task<Assignment?> GetByIdAsync(int id);
         Task<IEnumerable<Assignment>> GetAllAsync();
-        Task<Assignment> AddAsync(Assignment assignment);
-        Task<Assignment> UpdateAsync(Assignment assignment);
+        Task<Assignment> AddAsync(CreateAssignmentDto assignment);
+        Task<Assignment> UpdateAsync(CreateAssignmentDto assignment);
         Task DeleteAsync(int id);
         Task<IEnumerable<Assignment>> GetByDriverIdAsync(int driverId);
         Task<IEnumerable<Assignment>> GetByTruckIdAsync(int truckId);

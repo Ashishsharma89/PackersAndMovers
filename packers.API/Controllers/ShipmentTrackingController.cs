@@ -27,7 +27,6 @@ namespace packers.API.Controllers
         {
             var shipment = new Shipment
             {
-                Id = new Random().Next(1, int.MaxValue),
                 UserId = dto.UserId,
                 DriverId = dto.DriverId,
                 EstimatedArrival = dto.EstimatedArrival,
