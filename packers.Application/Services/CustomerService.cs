@@ -1,9 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using packers.Application.DTOs;
 using packers.Application.Interfaces.Repository;
 using packers.Application.Interfaces.Users;
 using packers.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace packers.Application.Services
 {
@@ -26,10 +27,9 @@ namespace packers.Application.Services
             return await _customerRepository.GetAllAsync();
         }
 
-        public async Task<Customer> CreateCustomerAsync(Customer customer)
+        public async Task<Customer> CreateCustomerAsync(CustomerDto customer)
         {
             // Set default values
-            customer.Id = new Random().Next(1, int.MaxValue);
             customer.RegistrationDate = DateTime.UtcNow;
             customer.Status = "Active";
 

@@ -72,7 +72,6 @@ namespace packers.Application.Services
         {
             return new ReviewDto
             {
-                ReviewId = review.ReviewId,
                 UserId = review.UserId,
                 UserName = review.UserName,
                 TargetId = review.TargetId,

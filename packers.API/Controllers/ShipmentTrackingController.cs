@@ -46,7 +46,6 @@ namespace packers.API.Controllers
                 return NotFound();
             var dto = new ShipmentStatusDto
             {
-                ShipmentId = shipment.Id,
                 Status = shipment.Status.ToString(),
                 EstimatedArrival = shipment.EstimatedArrival,
                 DeliveryConfirmed = shipment.DeliveryConfirmed

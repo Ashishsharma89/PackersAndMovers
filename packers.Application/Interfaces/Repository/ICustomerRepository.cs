@@ -1,7 +1,8 @@
+using packers.Application.DTOs;
+using packers.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using packers.Domain.Entities;
 
 namespace packers.Application.Interfaces.Repository
 {
@@ -9,7 +10,7 @@ namespace packers.Application.Interfaces.Repository
     {
         Task<Customer?> GetByIdAsync(int id);
         Task<IEnumerable<Customer>> GetAllAsync();
-        Task<Customer> AddAsync(Customer customer);
+        Task<Customer> AddAsync(CustomerDto customer);
         Task<Customer> UpdateAsync(Customer customer);
         Task DeleteAsync(int id);
         Task<Customer?> GetByEmailAsync(string email);

@@ -1,11 +1,12 @@
+using Microsoft.EntityFrameworkCore;
+using packers.Application.DTOs;
+using packers.Application.Interfaces.Repository;
+using packers.Domain.Entities;
+using packers.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using packers.Application.Interfaces.Repository;
-using packers.Domain.Entities;
-using packers.Infrastructure.Data;
 
 namespace packers.Infrastructure.Repositories.Users
 {
@@ -27,11 +28,22 @@ namespace packers.Infrastructure.Repositories.Users
             return await _context.Customers.ToListAsync();
         }
 
-        public async Task<Customer> AddAsync(Customer customer)
+        public async Task<Customer> AddAsync(CustomerDto customer)
         {
-            await _context.Customers.AddAsync(customer);
+            // Map CustomerDto to Customer entity
+            var customerEntity = new Customer
+            {
+                Name = customer.Name,
+                Email = customer.Email,
+                Phone = customer.Phone,
+                Address = customer.Address,
+                RegistrationDate = customer.RegistrationDate,
+                Status = customer.Status
+            };
+
+            await _context.Customers.AddAsync(customerEntity);
             await _context.SaveChangesAsync();
-            return customer;
+            return customerEntity;
         }
 
         public async Task<Customer> UpdateAsync(Customer customer)

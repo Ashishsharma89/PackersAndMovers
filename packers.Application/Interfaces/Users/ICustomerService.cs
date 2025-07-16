@@ -1,7 +1,8 @@
+using packers.Application.DTOs;
+using packers.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using packers.Domain.Entities;
 
 namespace packers.Application.Interfaces.Users
 {
@@ -9,7 +10,7 @@ namespace packers.Application.Interfaces.Users
     {
         Task<Customer?> GetCustomerByIdAsync(int id);
         Task<IEnumerable<Customer>> GetAllCustomersAsync();
-        Task<Customer> CreateCustomerAsync(Customer customer);
+        Task<Customer> CreateCustomerAsync(CustomerDto customer);
         Task<Customer> UpdateCustomerAsync(Customer customer);
         Task DeleteCustomerAsync(int id);
         Task<Customer?> GetCustomerByEmailAsync(string email);

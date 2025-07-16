@@ -32,7 +32,6 @@ namespace packers.API.Controllers
                 return NotFound();
             var dto = new DriverDto
             {
-                Id = driver.Id,
                 Name = driver.Name,
                 CurrentLatitude = driver.CurrentLatitude,
                 CurrentLongitude = driver.CurrentLongitude
