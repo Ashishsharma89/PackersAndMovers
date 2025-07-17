@@ -1,11 +1,12 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using packers.Application.Interfaces.Users;
-using System.Threading.Tasks;
 
 namespace packers.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class DashboardController : ControllerBase
     {
         private readonly IDashboardService _dashboardService;

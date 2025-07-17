@@ -1,15 +1,15 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using packers.Application.DTOs;
 using packers.Application.Interfaces.Users;
 using packers.Domain.Entities;
-using System;
-using System.Threading.Tasks;
 using packers.Infrastructure.Services.Communication;
 
 namespace packers.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class ShipmentTrackingController : ControllerBase
     {
         private readonly IShipmentService _shipmentService;

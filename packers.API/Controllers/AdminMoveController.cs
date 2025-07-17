@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using packers.Infrastructure.Data;
 
 [ApiController]
 [Route("api/admin/move")]
+[Authorize]
 public class AdminMoveController : ControllerBase
 {
     private readonly ApplicationDbContext _dbContext;

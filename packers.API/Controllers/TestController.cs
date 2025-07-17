@@ -2,11 +2,13 @@ using Microsoft.AspNetCore.Mvc;
 using packers.Domain.Entities;
 using packers.Application.Interfaces.Repository;
 using System.Security.Cryptography;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Packer.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class TestController : ControllerBase
     {
         private readonly IResetTokenRepository _resetTokenRepository;

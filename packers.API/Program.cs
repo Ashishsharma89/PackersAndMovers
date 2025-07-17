@@ -15,6 +15,15 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddCors(options => {
+    options.AddPolicy("packers", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+
+});
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { 
@@ -83,6 +92,7 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddSignalR();
 
 var app = builder.Build();
+app.UseCors("packers");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

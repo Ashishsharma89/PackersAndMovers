@@ -1,13 +1,13 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Packer.Application.DTOs;
 using packers.Application.Interfaces.Users;
-using packers.Domain.Entities;
-using System.Net;
-using System.Threading.Tasks;
 using packers.Infrastructure.Data;
+using System.Net;
 
 [ApiController]
 [Route("api/user")]
+[Authorize]
 public class UserController : ControllerBase
 {
     private readonly IUserServices _userService;
@@ -20,6 +20,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("profile")]
+    [Authorize]
     public IActionResult Profile([FromQuery] int userId)
     {
         var user = _dbContext.Users.FirstOrDefault(u => u.Id == userId);
@@ -28,6 +29,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPost("register-device-token")]
+    [AllowAnonymous]
     public IActionResult RegisterDeviceToken([FromQuery] int userId, [FromBody] string deviceToken)
     {
         var user = _dbContext.Users.FirstOrDefault(u => u.Id == userId);
@@ -37,6 +39,7 @@ public class UserController : ControllerBase
         return Ok(new { message = "Device token registered." });
     }
     [HttpPost("customer-form-submit")]
+    [AllowAnonymous]
     public async Task<IActionResult> CustomerFormSubmit([FromBody] CustomerFormSubmissionDto request)
     {
         if (!ModelState.IsValid)

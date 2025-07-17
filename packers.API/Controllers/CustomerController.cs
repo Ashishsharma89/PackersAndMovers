@@ -1,14 +1,14 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using packers.Application.DTOs;
 using packers.Application.Interfaces.Users;
 using packers.Domain.Entities;
-using System;
-using System.Threading.Tasks;
 
 namespace packers.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class CustomerController : ControllerBase
     {
         private readonly ICustomerService _customerService;

@@ -1,6 +1,5 @@
-﻿using packers.Domain.Entities;
-using System;
-using System.Threading.Tasks;
+﻿using Packer.Application.DTOs;
+using packers.Domain.Entities;
 
 namespace packers.Application.Interfaces.Users
 {

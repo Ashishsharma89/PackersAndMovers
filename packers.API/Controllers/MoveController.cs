@@ -1,14 +1,13 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using packers.Application.DTOs; 
+using packers.Application.DTOs;
 using packers.Application.Interfaces.Users;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace packers.API.Controllers
 {
     [ApiController]
     [Route("api/move")]
+    [Authorize]
     public class MoveController : ControllerBase
     {
         private readonly IMoveService _moveService;

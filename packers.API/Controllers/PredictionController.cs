@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Packer.Application.DTOs;
 using Packer.Application.Interfaces.ML;
 using Packer.Application.Services;
@@ -7,6 +8,7 @@ namespace Packer.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PredictionController : ControllerBase
     {
         private readonly IPredictionService _service;

@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using packers.Infrastructure.Data;
-using packers.Application.Interfaces.Repository;
-using packers.Domain.Entities;
+using Packer.Application.DTOs;
+using Packer.Domain.Entities;
 
 namespace packers.Infrastructure.Repositories.Users
 {

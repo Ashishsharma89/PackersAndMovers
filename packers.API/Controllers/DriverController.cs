@@ -1,14 +1,14 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using packers.Application.DTOs;
 using packers.Application.Interfaces.Users;
 using packers.Domain.Entities;
-using System.Threading.Tasks;
-using System.Linq;
 
 namespace packers.API.Controllers           
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class DriverController : ControllerBase
     {
         private readonly IDriverService _driverService;
@@ -19,6 +19,7 @@ namespace packers.API.Controllers
 
         // Register a new driver
         [HttpPost("register")]
+        [AllowAnonymous]
         public async Task<IActionResult> RegisterDriver([FromBody] DriverDto dto)
         {
             var driver = new Driver

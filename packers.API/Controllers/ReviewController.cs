@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using packers.Application.DTOs;
 using packers.Application.Interfaces.Users;
@@ -9,6 +10,7 @@ namespace packers.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class ReviewController : ControllerBase
     {
         private readonly IReviewService _reviewService;

@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Packer.Application.Config;
 using packers.Application.DTOs;
 using packers.Application.Interfaces.Auth;
