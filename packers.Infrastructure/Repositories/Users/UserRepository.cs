@@ -1,5 +1,8 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.ML;
 using Packer.Application.DTOs;
 using Packer.Domain.Entities;
+using packers.Application.Interfaces.Repository;
 
 namespace packers.Infrastructure.Repositories.Users
 {
@@ -59,6 +62,7 @@ namespace packers.Infrastructure.Repositories.Users
             {
                 customer_name = request.CustomerName,
                 phone = request.Phone,
+                email = request.Email,
                 origin_location_name = request.OriginLocationName,
                 origin_location_lat = request.OriginLocationLat,
                 origin_location_long = request.OriginLocationLong,
@@ -68,13 +72,56 @@ namespace packers.Infrastructure.Repositories.Users
                 distance_in_km = request.DistanceInKm,
                 items_json = request.ItemsJson,
                 urgency = request.Urgency,
-                estimated_price = request.EstimatedPrice, // Consider fixing spelling
+                estimated_price = request.EstimatedPrice, 
                 delivery_status = request.DeliveryStatus
             };
 
             _context.CustomerFormSubmissions.Add(entity);
             int affectedRows = await _context.SaveChangesAsync();
             return affectedRows > 0;
+        }
+
+        public async Task<List<CustomerFormSubmissions>> GetAllCustomers()
+        {
+            var customerFormSubmissions = await _context.CustomerFormSubmissions
+                                            .Select(c => new CustomerFormSubmissions
+                                            {
+                                                id = c.id,
+                                                form_submission_date = c.form_submission_date,
+                                                customer_name = c.customer_name,
+                                                email = c.email,
+                                                phone = c.phone,
+                                                delivery_status = c.delivery_status
+                                            })
+                                            .ToListAsync();
+
+            return customerFormSubmissions;
+        }
+
+        public async Task<List<CustomerFormSubmissions>> GetCustomersByDateAsync(DateTime date)
+        {
+            return await _context.CustomerFormSubmissions
+                .Where(c => c.form_submission_date.Date == date.Date)
+                .ToListAsync();
+        }
+
+        public async Task<CustomerFormSubmissions?> GetCustomerByIdAsync(int id)
+        {
+            return await _context.CustomerFormSubmissions.FirstOrDefaultAsync(c => c.id == id);
+        }
+
+        public async Task<bool> UpdateCustomerDeliveryStatusAsync(int id, string deliveryStatus)
+        {
+            var customer = await _context.CustomerFormSubmissions.FirstOrDefaultAsync(c => c.id == id);
+            if (customer == null)
+            {
+                return false;
+            }
+
+            customer.delivery_status = deliveryStatus;
+            _context.CustomerFormSubmissions.Update(customer);
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

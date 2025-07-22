@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using packers.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using packers.Infrastructure.Data;
 namespace Packer.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250722173427_CustomerFormSubmissionsEntityv2")]
+    partial class CustomerFormSubmissionsEntityv2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -213,29 +216,6 @@ namespace Packer.Infrastructure.Migrations
                     b.ToTable("TrackingEvents");
                 });
 
-            modelBuilder.Entity("packers.Domain.Entities.Truck", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("DriverId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TruckNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DriverId")
-                        .IsUnique();
-
-                    b.ToTable("Trucks");
-                });
-
             modelBuilder.Entity("packers.Domain.Entities.User", b =>
                 {
                     b.Property<int>("Id")
@@ -299,23 +279,6 @@ namespace Packer.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("packers.Domain.Entities.Truck", b =>
-                {
-                    b.HasOne("packers.Domain.Entities.Driver", "Driver")
-                        .WithOne("Truck")
-                        .HasForeignKey("packers.Domain.Entities.Truck", "DriverId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Driver");
-                });
-
-            modelBuilder.Entity("packers.Domain.Entities.Driver", b =>
-                {
-                    b.Navigation("Truck")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

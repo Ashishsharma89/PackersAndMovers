@@ -11,6 +11,9 @@ namespace Packer.Application.DTOs
         [Required(ErrorMessage = "Phone number is required.")]
         public string Phone { get; set; }
 
+        [Required(ErrorMessage = "Email is required.")]
+        public string Email { get; set; }
+
         [Required(ErrorMessage = "Origin location name is required.")]
         public string OriginLocationName { get; set; }
 
@@ -30,7 +33,7 @@ namespace Packer.Application.DTOs
         public string DestinationLocationLong { get; set; }
 
         [Required(ErrorMessage = "Distance (in km) is required.")]
-        public int DistanceInKm { get; set; }
+        public decimal DistanceInKm { get; set; }
 
         [Required(ErrorMessage = "Items JSON is required.")]
         public string ItemsJson { get; set; }

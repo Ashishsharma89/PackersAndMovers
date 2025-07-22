@@ -49,4 +49,34 @@ public class UserController : ControllerBase
         await _userService.CustomerFormSubmit(request);
         return Ok(new { Success = true, StatusCode = HttpStatusCode.OK, Message  = "Form submitted Succesfully"});
     }
-} 
+    [HttpGet("get-all-customers")]
+    [Authorize]
+    public async Task<IActionResult> GetAllCustomers()
+    {
+        var customers = await _userService.GetAllCustomers();
+        return Ok(customers);
+    }
+    [HttpGet("customers-by-date")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetCustomersByDate([FromQuery] DateTime date)
+    {
+        var customers = await _userService.GetCustomersByDateAsync(date);
+        return Ok(customers);
+    }
+    [HttpGet("customer-by-id")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetCustomerById([FromQuery] int id)
+    {
+        var customer = await _userService.GetCustomerByIdAsync(id);
+        return Ok(customer);
+    }
+    [HttpPut("update-customer-by-id")]
+    [AllowAnonymous]
+    public async Task<IActionResult> UpdateCustomerById([FromQuery] int id, [FromBody] string deliveryStatus)
+    {
+        var result = await _userService.UpdateCustomerDeliveryStatusAsync(id, deliveryStatus);
+        if (!result)
+            return NotFound();
+        return Ok(new { Success = true, Message = "Customer updated successfully." });
+    }
+}
