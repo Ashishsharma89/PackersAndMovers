@@ -2,13 +2,15 @@ using System;
 
 namespace packers.Application.DTOs
 {
-    public class DriverDto
+    public class CreateDriverWithTruckDto
     {
-        public string Name { get; set; } = string.Empty;
-        public string LicenseNumber { get; set; } = string.Empty;
-        public string Phone { get; set; } = string.Empty;
-        public string Status { get; set; } = "Active"; //
+        public string Name { get; set; }
+        public string LicenseNumber { get; set; }
+        public string Phone { get; set; }
         public double CurrentLatitude { get; set; }
         public double CurrentLongitude { get; set; }
+        public string TruckNumber { get; set; }
     }
+
+    public class UpdateDriverWithTruckDto : CreateDriverWithTruckDto { }
 } 

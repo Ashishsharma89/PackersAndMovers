@@ -17,90 +17,61 @@ namespace packers.API.Controllers
             _driverService = driverService;
         }
 
-        // Register a new driver
-        [HttpPost("register")]
-        [AllowAnonymous]
-        public async Task<IActionResult> RegisterDriver([FromBody] DriverDto dto)
+        [HttpPost]
+        public async Task<IActionResult> CreateDriver([FromBody] CreateDriverWithTruckDto dto)
         {
-            var driver = new Driver
+            try
             {
-                Name = dto.Name,
-                LicenseNumber = dto.LicenseNumber,
-                Phone = dto.Phone,
-                Status = dto.Status,
-                CurrentLatitude = dto.CurrentLatitude,
-                CurrentLongitude = dto.CurrentLongitude
-            };
-            await _driverService.AddDriverAsync(driver);
-            return Ok(new { message = "Driver registered successfully.", driverId = driver.Id });
+                var driver = await _driverService.AddDriverWithTruckAsync(dto);
+                return CreatedAtAction(nameof(GetDriverById), new { id = driver.Id }, driver);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
         }
 
-        // Get all drivers
-        [HttpGet("all")]
+        [HttpGet]
         public async Task<IActionResult> GetAllDrivers()
         {
             var drivers = await _driverService.GetAllDriversAsync();
-            var driverDtos = drivers.Select(d => new Driver
+            return Ok(drivers);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetDriverById(int id)
+        {
+            var driver = await _driverService.GetDriverByIdAsync(id);
+            if (driver == null)
+                return NotFound();
+            return Ok(driver);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateDriver(int id, [FromBody] UpdateDriverWithTruckDto dto)
+        {
+            try
             {
-                Id=d.Id,
-                Name = d.Name,
-                LicenseNumber = d.LicenseNumber,
-                Phone = d.Phone,
-                Status = d.Status,
-                CurrentLatitude = d.CurrentLatitude,
-                CurrentLongitude = d.CurrentLongitude
-            });
-            return Ok(driverDtos);
-        }
+                var updated = await _driverService.UpdateDriverWithTruckAsync(id, dto);
+                if (updated == null)
+                    return NotFound();
 
-        // Get driver by ID (already exists)
-        [HttpGet("{driverId}")]
-        public async Task<ActionResult<DriverDto>> GetDriver(int driverId)
-        {
-            var driver = await _driverService.GetDriverByIdAsync(driverId);
-            if (driver == null)
-                return NotFound();
-            var dto = new DriverDto
+                return Ok(updated);
+            }
+            catch (Exception ex)
             {
-                Name = driver.Name,
-                LicenseNumber = driver.LicenseNumber,
-                Phone = driver.Phone,
-                Status = driver.Status,
-                CurrentLatitude = driver.CurrentLatitude,
-                CurrentLongitude = driver.CurrentLongitude
-            };
-            return Ok(dto);
+                return BadRequest(new { error = ex.Message });
+            }
         }
 
-        // Update driver
-        [HttpPut("{driverId}")]
-        public async Task<IActionResult> UpdateDriver(int driverId, [FromBody] DriverDto dto)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteDriver(int id)
         {
-            var driver = await _driverService.GetDriverByIdAsync(driverId);
-            if (driver == null)
+            var result = await _driverService.DeleteDriverAsync(id);
+            if (!result)
                 return NotFound();
 
-            driver.Name = dto.Name;
-            driver.LicenseNumber = dto.LicenseNumber;
-            driver.Phone = dto.Phone;
-            driver.Status = dto.Status;
-            driver.CurrentLatitude = dto.CurrentLatitude;
-            driver.CurrentLongitude = dto.CurrentLongitude;
-
-            await _driverService.UpdateDriverAsync(driver);
-            return Ok(new { message = "Driver updated successfully." });
-        }
-
-        // Delete driver
-        [HttpDelete("{driverId}")]
-        public async Task<IActionResult> DeleteDriver(int driverId)
-        {
-            var driver = await _driverService.GetDriverByIdAsync(driverId);
-            if (driver == null)
-                return NotFound();
-
-            await _driverService.DeleteDriverAsync(driverId);
-            return Ok(new { message = "Driver deleted successfully." });
+            return NoContent();
         }
 
         // Update location (already exists)

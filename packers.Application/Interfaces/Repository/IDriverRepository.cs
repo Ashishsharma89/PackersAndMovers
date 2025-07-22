@@ -1,17 +1,18 @@
+using packers.Application.DTOs;
+using packers.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using packers.Domain.Entities;
 
 namespace packers.Application.Interfaces.Repository
 {
     public interface IDriverRepository
     {
-        Task<Driver?> GetByIdAsync(int id);
-        Task<IEnumerable<Driver>> GetAllAsync();
-        Task AddAsync(Driver driver);
-        Task UpdateAsync(Driver driver);
-        Task DeleteAsync(int id);
+        Task<Driver> AddDriverWithTruckAsync(CreateDriverWithTruckDto dto);
+        Task<IEnumerable<Driver>> GetAllDriversAsync();
+        Task<Driver?> GetDriverByIdAsync(int id);
+        Task<Driver?> UpdateDriverWithTruckAsync(int id, UpdateDriverWithTruckDto dto);
+        Task<bool> DeleteDriverAsync(int id);
         Task UpdateLocationAsync(int driverId, double latitude, double longitude);
     }
 } 

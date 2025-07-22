@@ -16,7 +16,7 @@ namespace packers.Infrastructure.Data
         public DbSet<TrackingEvent> TrackingEvents { get; set; } = null!;
         public DbSet<Driver> Drivers { get; set; } = null!;
         public DbSet<CustomerFormSubmissions> CustomerFormSubmissions { get; set; } = null!;
-
+        public DbSet<Truck> Trucks { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

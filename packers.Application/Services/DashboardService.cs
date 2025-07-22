@@ -23,7 +23,7 @@ namespace packers.Application.Services
 
         public async Task<DashboardStatsDto> GetDashboardStatsAsync()
         {
-            var drivers = await _driverRepository.GetAllAsync();
+            var drivers = await _driverRepository.GetAllDriversAsync();
             var orders = await _moveRequestRepository.GetAllAsync();
 
             return new DashboardStatsDto

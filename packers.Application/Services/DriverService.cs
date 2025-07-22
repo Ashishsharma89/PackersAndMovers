@@ -1,9 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using packers.Application.DTOs;
 using packers.Application.Interfaces.Repository;
 using packers.Application.Interfaces.Users;
 using packers.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace packers.Application.Services
 {
@@ -15,29 +16,29 @@ namespace packers.Application.Services
             _driverRepository = driverRepository;
         }
 
+        public async Task<Driver> AddDriverWithTruckAsync(CreateDriverWithTruckDto dto)
+        {
+            return await _driverRepository.AddDriverWithTruckAsync(dto);
+        }
+
         public async Task<Driver?> GetDriverByIdAsync(int id)
         {
-            return await _driverRepository.GetByIdAsync(id);
+            return await _driverRepository.GetDriverByIdAsync(id);
         }
 
         public async Task<IEnumerable<Driver>> GetAllDriversAsync()
         {
-            return await _driverRepository.GetAllAsync();
+            return await _driverRepository.GetAllDriversAsync();
         }
 
-        public async Task AddDriverAsync(Driver driver)
+        public async Task<Driver?> UpdateDriverWithTruckAsync(int id, UpdateDriverWithTruckDto dto)
         {
-            await _driverRepository.AddAsync(driver);
+            return await _driverRepository.UpdateDriverWithTruckAsync(id, dto);
         }
 
-        public async Task UpdateDriverAsync(Driver driver)
+        public async Task<bool> DeleteDriverAsync(int id)
         {
-            await _driverRepository.UpdateAsync(driver);
-        }
-
-        public async Task DeleteDriverAsync(int id)
-        {
-            await _driverRepository.DeleteAsync(id);
+            return await _driverRepository.DeleteDriverAsync(id);
         }
 
         public async Task UpdateDriverLocationAsync(int driverId, double latitude, double longitude)
