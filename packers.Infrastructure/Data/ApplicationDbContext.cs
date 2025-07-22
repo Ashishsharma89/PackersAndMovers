@@ -13,9 +13,13 @@ namespace packers.Infrastructure.Data
 
         public DbSet<User> Users { get; set; } = null!;
         public DbSet<MoveRequest> MoveRequests { get; set; } = null!;
+        public DbSet<Shipment> Shipments { get; set; } = null!;
         public DbSet<TrackingEvent> TrackingEvents { get; set; } = null!;
         public DbSet<Driver> Drivers { get; set; } = null!;
         public DbSet<Review> Reviews { get; set; } = null!;
+        public DbSet<Customer> Customers { get; set; } = null!;
+        public DbSet<Truck> Trucks { get; set; } = null!;
+        public DbSet<Assignment> Assignments { get; set; } = null!;
         public DbSet<CustomerFormSubmissions> CustomerFormSubmissions { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

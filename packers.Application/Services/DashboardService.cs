@@ -10,25 +10,35 @@ namespace packers.Application.Services
 {
     public class DashboardService : IDashboardService
     {
+        private readonly ICustomerRepository _customerRepository;
         private readonly IDriverRepository _driverRepository;
+        private readonly ITruckRepository _truckRepository;
         private readonly IMoveRequestRepository _moveRequestRepository;
 
         public DashboardService(
+            ICustomerRepository customerRepository,
             IDriverRepository driverRepository,
+            ITruckRepository truckRepository,
             IMoveRequestRepository moveRequestRepository)
         {
+            _customerRepository = customerRepository;
             _driverRepository = driverRepository;
+            _truckRepository = truckRepository;
             _moveRequestRepository = moveRequestRepository;
         }
 
         public async Task<DashboardStatsDto> GetDashboardStatsAsync()
         {
+            var customers = await _customerRepository.GetAllAsync();
             var drivers = await _driverRepository.GetAllAsync();
+            var trucks = await _truckRepository.GetAllAsync();
             var orders = await _moveRequestRepository.GetAllAsync();
 
             return new DashboardStatsDto
             {
+                TotalCustomers = customers.Count(),
                 TotalDrivers = drivers.Count(),
+                TotalTrucks = trucks.Count(),
                 TotalOrders = orders.Count(),
                 AverageDeliveryTime = CalculateAverageDeliveryTime(orders),
                 TotalRevenue = orders.Sum(o => o.EstimatedPrice)
@@ -37,17 +47,16 @@ namespace packers.Application.Services
 
         public async Task<List<TopCustomerDto>> GetTopCustomersAsync(int count = 5)
         {
+            var customers = await _customerRepository.GetAllAsync();
             var orders = await _moveRequestRepository.GetAllAsync();
 
-            var topCustomers = orders
-                .Select(o => o.UserId)
-                .Distinct()
-                .Select(userId => new TopCustomerDto
+            var topCustomers = customers
+                .Select(c => new TopCustomerDto
                 {
-                    CustomerId = userId,
-                    CustomerName = "Unknown Customer", // Placeholder, actual name would need to be fetched
-                    OrderCount = orders.Count(o => o.UserId == userId),
-                    TotalSpent = orders.Where(o => o.UserId == userId).Sum(o => o.EstimatedPrice)
+                    CustomerId = c.Id,
+                    CustomerName = c.Name,
+                    OrderCount = orders.Count(o => o.UserId == c.Id),
+                    TotalSpent = orders.Where(o => o.UserId == c.Id).Sum(o => o.EstimatedPrice)
                 })
                 .Where(c => c.OrderCount > 0)
                 .OrderByDescending(c => c.OrderCount)
