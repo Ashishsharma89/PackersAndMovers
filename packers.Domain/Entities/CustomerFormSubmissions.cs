@@ -14,6 +14,8 @@ namespace Packer.Domain.Entities
         [Required]
         public string phone { get; set; }
         [Required]
+        public string email { get; set; }
+        [Required]
         public string origin_location_name { get; set; }
         [Required]
         public string origin_location_lat { get; set; }
@@ -26,7 +28,7 @@ namespace Packer.Domain.Entities
         [Required]
         public string destination_location_long { get; set; }
         [Required]
-        public int distance_in_km { get; set; }
+        public decimal distance_in_km { get; set; }
         [Required]
         public string items_json { get; set; }
         public bool urgency { get; set; } = false;

@@ -1,9 +1,11 @@
-using System;
-using System.Threading.Tasks;
 using Packer.Application.DTOs;
+using Packer.Domain.Entities;
 using packers.Application.Interfaces.Repository;
 using packers.Application.Interfaces.Users;
 using packers.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace packers.Application.Services
 {
@@ -61,5 +63,25 @@ namespace packers.Application.Services
         {
             return await _userRepository.CustomerFormSubmit(request);
         }
+
+        public async Task<List<CustomerFormSubmissions>> GetAllCustomers()
+        {
+            return await _userRepository.GetAllCustomers();
+        }
+
+        public async Task<List<CustomerFormSubmissions>> GetCustomersByDateAsync(DateTime date)
+        {
+            return await _userRepository.GetCustomersByDateAsync(date);
+        }
+
+        public async Task<CustomerFormSubmissions?> GetCustomerByIdAsync(int id)
+        {
+            return await _userRepository.GetCustomerByIdAsync(id);
+        }
+
+        public async Task<bool> UpdateCustomerDeliveryStatusAsync(int id, string deliveryStatus)
+        {
+            return await _userRepository.UpdateCustomerDeliveryStatusAsync(id, deliveryStatus);
+        }
     }
-} 
+}

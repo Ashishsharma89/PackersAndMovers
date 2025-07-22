@@ -1,5 +1,9 @@
+using Packer.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Packer.Application.DTOs;
-using packers.Domain.Entities;
+using packers.Domain.Entities; // Ensure correct namespace is imported
 
 namespace packers.Application.Interfaces.Repository
 {
@@ -11,5 +15,9 @@ namespace packers.Application.Interfaces.Repository
         Task<User> UpdateAsync(User user);
         Task<bool> DeleteAsync(int id);
         Task<bool> CustomerFormSubmit(CustomerFormSubmissionDto request);
+        Task<List<CustomerFormSubmissions>> GetAllCustomers();
+        Task<List<CustomerFormSubmissions>> GetCustomersByDateAsync(DateTime date);
+        Task<CustomerFormSubmissions?> GetCustomerByIdAsync(int id);
+        Task<bool> UpdateCustomerDeliveryStatusAsync(int id, string deliveryStatus);
     }
 }
