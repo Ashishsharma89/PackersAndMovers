@@ -17,10 +17,15 @@ namespace packers.Infrastructure.Data
         public DbSet<Driver> Drivers { get; set; } = null!;
         public DbSet<CustomerFormSubmissions> CustomerFormSubmissions { get; set; } = null!;
         public DbSet<Truck> Trucks { get; set; }
+        public DbSet<Orders> Orders { get; set; }
+        public DbSet<Customers> Customers { get; set; }
+        public DbSet<CustomerOrders> CustomerOrders { get; set; }
+        public DbSet<Tracking> Tracking { get; set; }
+        public DbSet<OrderTracking> OrderTrackings { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
+
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasKey(e => e.Id);
@@ -58,6 +63,49 @@ namespace packers.Infrastructure.Data
                       .HasForeignKey(e => e.UserId)
                       .OnDelete(DeleteBehavior.Cascade);
             });
+
+
+            //Orderid Sequences
+            modelBuilder.HasSequence<int>("Seq_Orders")
+                .StartsAt(1)
+                .IncrementsBy(1);
+
+            modelBuilder.Entity<Orders>()
+                .Property(t => t.id)
+                .HasDefaultValueSql("NEXT VALUE FOR Seq_Orders");
+
+            modelBuilder.Entity<Orders>()
+                .Property(t => t.order_id)
+                .HasComputedColumnSql("'OID' + RIGHT('000000' + CAST([id] AS VARCHAR), 6)", stored: true);
+
+
+            //CustomerId Sequence
+            modelBuilder.HasSequence<int>("Seq_Customer")
+                .StartsAt(1)
+                .IncrementsBy(1);
+
+            modelBuilder.Entity<Customers>()
+                .Property(t => t.id)
+                .HasDefaultValueSql("NEXT VALUE FOR Seq_Customer");
+
+            modelBuilder.Entity<Customers>()
+                .Property(t => t.customer_id)
+                .HasComputedColumnSql("'CUS' + RIGHT('000000' + CAST([id] AS VARCHAR), 6)", stored: true);
+
+
+            //TrackingId Sequence
+            modelBuilder.HasSequence<int>("Seq_Tracking")
+                .StartsAt(1)
+                .IncrementsBy(1);
+
+            modelBuilder.Entity<Tracking>()
+                .Property(t => t.id)
+                .HasDefaultValueSql("NEXT VALUE FOR Seq_Tracking");
+
+            modelBuilder.Entity<Tracking>()
+                .Property(t => t.tracking_id)
+                .HasComputedColumnSql("'TID' + RIGHT('000000' + CAST([id] AS VARCHAR), 6)", stored: true);
         }
+
     }
-} 
+}

@@ -4,9 +4,10 @@ namespace packers.Domain.Entities
 {
     public enum TrackingStatus
     {
-        PickedUp,
-        InTransit,
-        Arrived,
+        Pending,
+        Dispatched,
+        Shipped,
+        OutForDelivery,
         Delivered
     }
 
