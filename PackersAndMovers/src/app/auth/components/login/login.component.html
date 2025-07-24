@@ -1,0 +1,106 @@
+<div class="bg-white font-sans">
+    <div class="flex min-h-screen">
+        <div class="w-full lg:w-1/2 flex items-center justify-center px-8">
+        <div class="max-w-md w-full">
+            <div class="mb-6 text-center">
+            <img src="assets/images/packers-logo.png" alt="Logo" class="mx-auto h-12" />
+            <h2 class="text-3xl font-bold text-gray-800 mt-4">Welcome!</h2>
+            <p class="text-gray-500">Log in now and access your account.</p>
+            </div>
+
+            <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" class="form-centered" novalidate>
+            <div class="mb-4">
+                <label mat-label class="block text-gray-700 font-medium mb-2">Email</label>
+                <input
+                    class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400"
+                    placeholder="admin@yopmail.com"
+                    matInput
+                    name="email"
+                    [(ngModel)]="email"
+                    #emailModel="ngModel"
+                    required
+                    email
+                    #emailInput
+                    type="email"
+                    autocomplete="email"
+                />
+                <mat-error *ngIf="emailModel && emailModel.invalid && (emailModel.dirty || emailModel.touched || loginForm.submitted)">
+                    <ng-container *ngIf="emailModel.errors?.['required']">
+                        Email is required
+                    </ng-container>
+                    <ng-container *ngIf="emailModel.errors?.['email']">
+                        Please enter a valid email
+                    </ng-container>
+                </mat-error>
+            </div>
+
+            <div class="mb-4">
+                <label mat-label class="block text-gray-700 font-medium mb-2">Password</label>
+                <input
+                    type="password"
+                    class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400"
+                    placeholder="••••••••"
+                    matInput
+                    name="password"
+                    [(ngModel)]="password"
+                    #passwordModel="ngModel"
+                    required
+                    minlength="6"
+                    [type]="hide ? 'password' : 'text'"
+                    autocomplete="current-password"
+                />
+                <mat-error *ngIf="passwordModel && passwordModel.invalid && (passwordModel.dirty || passwordModel.touched || loginForm.submitted)">
+                    <ng-container *ngIf="passwordModel.errors?.['required']">
+                        Password is required
+                    </ng-container>
+                    <ng-container *ngIf="passwordModel.errors?.['minlength']">
+                        Minimum 6 characters
+                    </ng-container>
+                </mat-error>
+            </div>
+
+            <div class="flex justify-end mb-4" (click)="forgotPassword()">
+                <a class="text-orange-500 text-sm font-medium hover:underline">Forgot Your Password?</a>
+            </div>
+
+            <button
+                type="submit" [disabled]="loginForm.invalid"
+                class="w-full bg-orange-500 text-white font-semibold py-2 rounded-md hover:bg-orange-600 transition"
+            >
+                Log In
+            </button>
+            </form>
+
+            <div class="my-6 flex items-center">
+                <div class="border-t w-full border-gray-300"></div>
+                <span class="mx-4 text-gray-400">Or</span>
+                <div class="border-t w-full border-gray-300"></div>
+            </div>
+
+            <!-- Social Buttons -->
+            <div class="flex justify-center gap-4 mb-6">
+                <button class="border p-2 rounded-md w-12 hover:shadow"><img src="https://img.icons8.com/color/48/google-logo.png" alt="Google" /></button>
+                <button class="border p-2 rounded-md w-12 hover:shadow"><img src="https://img.icons8.com/color/48/facebook-new.png" alt="Facebook" /></button>
+                <button class="border p-2 rounded-md w-12 hover:shadow"><img src="https://img.icons8.com/ios-filled/50/mac-os.png" alt="Apple" /></button>
+                <button class="border p-2 rounded-md w-12 hover:shadow"><img src="https://img.icons8.com/color/48/linkedin.png" alt="LinkedIn" /></button>
+            </div>
+
+            <p class="text-center text-sm text-gray-600">
+                Don’t have an account yet?
+                <a (click)="goToRegister()" class="text-orange-500 font-medium hover:underline">Register</a>
+            </p>
+        </div>
+        </div>
+
+        <!-- Right Section -->
+        <div class="hidden lg:flex w-1/2 bg-yellow-50 items-center justify-center p-12">
+            <div class="text-center">
+                <h2 class="text-2xl font-semibold text-green-900 mb-6 leading-relaxed">
+                    Moving Made Easy,<br />
+                    Your Trusted Packers and Movers Partner
+                </h2>
+                <img src="assets/images/login-rightbg.png" alt="Illustration" class="max-w-sm mx-auto" />
+            </div>
+        </div>
+    </div>
+</div>

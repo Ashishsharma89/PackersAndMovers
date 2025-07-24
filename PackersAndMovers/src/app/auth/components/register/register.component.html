@@ -1,0 +1,70 @@
+<div class="bg-white font-sans">
+    <div class="flex min-h-screen">
+        <div class="w-full lg:w-1/2 flex items-center justify-center px-6 sm:px-12">
+            <div class="max-w-2xl w-full">
+                <div class="text-center mb-8">
+                    <img src="/assets/images/packers-logo.png" alt="Logo" class="mx-auto h-12" />
+                    <h2 class="text-2xl font-semibold text-gray-800 mt-4">Create Your Account</h2>
+                    <p class="text-gray-500 text-sm">Just a few quick things to get started</p>
+                </div>
+
+                <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)" novalidate>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">First Name <span class="text-red-500">*</span></label>
+                            <input type="text" placeholder="Enter First Name" name="firstName" [(ngModel)]="formData.name" required class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Last Name <span class="text-red-500">*</span></label>
+                            <input type="text" placeholder="Enter Last Name" name="lastName" [(ngModel)]="formData.lastName" required class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400" />
+                        </div>
+                        <!-- <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Register as <span class="text-red-500">*</span></label>
+                            <select name="userType" [(ngModel)]="formData.userType" required class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400">
+                                <option value="" disabled selected>Select User Type</option>
+                                <option value="User">User</option>
+                                <option value="Administrator">Administrator</option>
+                            </select>
+                        </div> -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Email <span class="text-red-500">*</span></label>
+                            <input type="email" placeholder="admin@yopmail.com" name="email" [(ngModel)]="formData.email" required class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Age <span class="text-red-500">*</span></label>
+                            <input type="number" placeholder="age" name="age" [(ngModel)]="formData.age" required class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Password <span class="text-red-500">*</span></label>
+                            <input type="password" placeholder="••••••••" name="password" [(ngModel)]="formData.password" required class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Confirm Password <span class="text-red-500">*</span></label>
+                            <input type="password" placeholder="Enter Confirm Password" name="confirmPassword" [(ngModel)]="formData.confirmPassword" required class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400" />
+                        </div>
+                    </div>
+
+                    <div class="mt-6">
+                        <button type="submit" [disabled]="registerForm.invalid" class="w-full bg-orange-500 text-white font-semibold py-2 rounded-md hover:bg-orange-600 transition">Sign Up</button>
+                    </div>
+                </form>
+
+                <p class="text-center text-sm text-gray-600 mt-4">
+                    Already have an account? 
+                    <a (click)="goToLogin()" class="text-orange-500 font-medium hover:underline">Log In</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Right side (illustration & message) -->
+        <div class="hidden lg:flex w-1/2 bg-yellow-50 items-center justify-center p-12">
+            <div class="text-center">
+                <h2 class="text-2xl font-semibold text-green-900 mb-6 leading-relaxed">
+                    Moving Made Easy,<br />
+                    Your Trusted Packers and Movers Partner
+                </h2>
+                <img src="/assets/images/login-rightbg.png" alt="Illustration" class="max-w-sm mx-auto" />
+            </div>
+        </div>
+    </div>
+  </div>

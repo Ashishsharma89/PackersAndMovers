@@ -1,0 +1,28 @@
+<google-map
+  [center]="center"
+  [zoom]="zoom"
+  height="500px"
+  width="100%"
+  (mapClick)="onMapClick($event)"
+>
+  <map-marker
+    *ngFor="let marker of markers"
+    #mapMarker="mapMarker"
+    [position]="marker.position"
+    [label]="marker.label"
+    [title]="marker.title"
+    [options]="marker.options"
+    (mapClick)="onMarkerClick(mapMarker, marker.branch)"
+  ></map-marker>
+  <map-info-window
+    #infoWindow
+    (closeclick)="onInfoWindowClose()"
+  >
+    <div *ngIf="selectedBranch()">
+      <h3>{{ selectedBranch().name }}</h3>
+      <p>Location: {{ selectedBranch().location }}</p>
+      <p>Canton: {{ selectedBranch().canton }}</p>
+      <p>Post Code: {{ selectedBranch().postCode }}</p>
+    </div>
+  </map-info-window>
+</google-map>

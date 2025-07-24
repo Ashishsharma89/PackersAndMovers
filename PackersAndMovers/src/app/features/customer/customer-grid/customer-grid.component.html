@@ -1,0 +1,66 @@
+  <div class="bg-gray-100 font-sans h-screen">
+      <div class="flex-1 flex flex-col p-8 space-y-8">
+        <div class="flex justify-between items-center mb-2 bg-white rounded-lg px-6 py-4 shadow">
+          <h1 class="text-2xl font-semibold text-primary">Reports</h1>
+          <div class="flex items-center gap-6">
+            <button class="relative">
+              <span class="text-2xl">🔔</span>
+              <span class="absolute -top-1 -right-2 text-xs bg-red-500 text-white rounded-full px-1.5">10</span>
+            </button>
+            <div class="flex items-center gap-3">
+              <div class="bg-gray-300 text-white rounded-full h-9 w-9 flex items-center justify-center text-lg font-semibold">LL</div>
+              <div class="text-sm leading-tight">
+                <div class="font-medium">Lisa Leit</div>
+                <div class="text-gray-500 text-xs">admin&#64;yopmail.com</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-2">
+          <div class="flex items-center gap-4 w-full md:w-auto">
+            <input type="date" class="border border-gray-300 rounded-md px-4 py-2 w-full md:w-auto" />
+            <input type="text" placeholder="Search" class="border border-gray-300 rounded-md px-4 py-2 w-full md:w-64" />
+          </div>
+          <button class="relative" (click)="goToCustomerForm()">
+            <span class="-top-1 -right-2 text-xs bg-blue-500 text-white rounded px-1.5 p-10">Add Customer</span>
+          </button>
+        </div>
+
+        <!-- Table -->
+        <div class="overflow-auto rounded-lg shadow bg-white flex-1">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50 text-gray-600 text-sm">
+              <tr>
+                <th class="px-6 py-3 text-left font-semibold whitespace-nowrap">Customer Name <span class="text-xs">⬍</span></th>
+                <th class="px-6 py-3 text-left font-semibold whitespace-nowrap">Phone <span class="text-xs">⬍</span></th>
+                <th class="px-6 py-3 text-left font-semibold whitespace-nowrap">Email <span class="text-xs">⬍</span></th>
+                <th class="px-6 py-3 text-left font-semibold whitespace-nowrap">Order Date <span class="text-xs">⬍</span></th>
+                <!-- <th class="px-6 py-3 text-left font-semibold whitespace-nowrap">Origin City</th> -->
+                <!-- <th class="px-6 py-3 text-left font-semibold whitespace-nowrap">Destination City</th> -->
+                <th class="px-6 py-3 text-left font-semibold whitespace-nowrap">Status</th>
+                <th class="px-6 py-3 text-left font-semibold whitespace-nowrap">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100 bg-white text-sm">
+              <!-- Example data, repeat for full height -->
+              <tr *ngFor="let customer of customers" class="hover:bg-gray-50 transition-colors">
+                <td class="px-6 py-4 flex items-center gap-2">
+                  <span class="font-medium text-gray-800">{{ customer.name }}</span>
+                </td>
+                <td class="px-6 py-4">{{ customer.phone }}</td>
+                <td class="px-6 py-4">{{ customer.email }}</td>
+                <td class="px-6 py-4">{{ customer.registrationDate | date:'yyyy-MM-dd' }}</td>  <!-- <td class="px-6 py-4">{{ customer.originCity }}</td> -->
+                <!-- <td class="px-6 py-4">{{ customer.destinationCity }}</td> -->
+                <td class="px-6 py-4">{{ customer.status }}</td>
+                <td class="px-6 py-4 text-orange-500 flex gap-3">
+                  <span class="cursor-pointer" title="View"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg></span>
+                  <span class="cursor-pointer" title="Download"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3" /></svg></span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+</div>

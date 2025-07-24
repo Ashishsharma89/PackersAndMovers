@@ -1,0 +1,20 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* You can add global styles to this file, and also import other style files */
+
+/* Mat Error */
+mat-error {
+  font-size: 0.8rem;
+  color: #ef4444;
+  margin-top: 0.25rem;
+}
+
+.form-conainer {
+  width: 100vh;
+}
+
+.p-10 {
+  padding: 10px
+}
