@@ -18,4 +18,12 @@ namespace Packer.Domain.Entities
         [Required]
         public bool is_deleted { get; set; }
     }
+    public enum TrackingStatus
+    {
+        Pending,
+        Dispatched,
+        Shipped,
+        OutForDelivery,
+        Delivered
+    }
 }

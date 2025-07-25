@@ -16,5 +16,6 @@ namespace Packer.Domain.Entities
         public string status { get; set; }
         [Required]
         public DateTime status_date { get; set; } = DateTime.Now;
+        
     }
 }

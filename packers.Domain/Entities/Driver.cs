@@ -12,7 +12,6 @@ namespace packers.Domain.Entities
         public string Status { get; set; } = "Active";
         public double CurrentLatitude { get; set; }
         public double CurrentLongitude { get; set; }
-
         public Truck Truck { get; set; }
     }
 

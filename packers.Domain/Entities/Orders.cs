@@ -29,5 +29,9 @@ namespace Packer.Domain.Entities
         public decimal estimated_price { get; set; }
         public DateTime order_date { get; set; } = DateTime.Now;
         public DateTime delivery_date { get; set; }
+
+        // New properties for driver assignment
+        public int? DriverId { get; set; } // Nullable, as order may not have a driver assigned
+        public string DriverAssignmentStatus { get; set; } = "NotAssigned"; // e.g., NotAssigned, Assigned, Away, NotAvailable
     }
 }

@@ -78,6 +78,25 @@ namespace packers.Infrastructure.Data
                 .Property(t => t.order_id)
                 .HasComputedColumnSql("'OID' + RIGHT('000000' + CAST([id] AS VARCHAR), 6)", stored: true);
 
+            modelBuilder.Entity<Orders>()
+                .Property(t => t.delivery_date)
+                .IsRequired();
+
+            // Configure new driver assignment properties
+            modelBuilder.Entity<Orders>()
+                .Property(t => t.DriverAssignmentStatus)
+                .HasMaxLength(30)
+                .HasDefaultValue("NotAssigned");
+            modelBuilder.Entity<Orders>()
+                .Property(t => t.DriverId)
+                .IsRequired(false);
+            // Optional: Add FK relationship if you want navigation
+            // modelBuilder.Entity<Orders>()
+            //     .HasOne<Driver>()
+            //     .WithMany()
+            //     .HasForeignKey(o => o.DriverId)
+            //     .OnDelete(DeleteBehavior.SetNull);
+
 
             //CustomerId Sequence
             modelBuilder.HasSequence<int>("Seq_Customer")

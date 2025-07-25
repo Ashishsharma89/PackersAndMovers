@@ -13,4 +13,12 @@ namespace packers.Application.DTOs
     }
 
     public class UpdateDriverWithTruckDto : CreateDriverWithTruckDto { }
+
+    public class AssignedDriverDto
+    {
+        public int DriverId { get; set; }
+        public string Name { get; set; }
+        public string Phone { get; set; }
+        public string Status { get; set; }
+    }
 } 

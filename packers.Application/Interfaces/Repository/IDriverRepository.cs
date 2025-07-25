@@ -14,5 +14,6 @@ namespace packers.Application.Interfaces.Repository
         Task<Driver?> UpdateDriverWithTruckAsync(int id, UpdateDriverWithTruckDto dto);
         Task<bool> DeleteDriverAsync(int id);
         Task UpdateLocationAsync(int driverId, double latitude, double longitude);
+        Task<Driver?> AssignDriverToOrderAsync(int orderId);
     }
 } 

@@ -45,5 +45,18 @@ namespace packers.Application.Services
         {
             await _driverRepository.UpdateLocationAsync(driverId, latitude, longitude);
         }
+
+        public async Task<AssignedDriverDto?> AssignDriverToOrderAsync(int orderId)
+        {
+            var driver = await _driverRepository.AssignDriverToOrderAsync(orderId);
+            if (driver == null) return null;
+            return new AssignedDriverDto
+            {
+                DriverId = driver.Id,
+                Name = driver.Name,
+                Phone = driver.Phone,
+                Status = driver.Status
+            };
+        }
     }
 } 

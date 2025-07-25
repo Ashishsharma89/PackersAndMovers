@@ -94,5 +94,34 @@ namespace packers.Infrastructure.Repositories.Users
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task<Driver?> GetFirstAvailableDriverAsync()
+        {
+            // Find drivers with Status == "Active" and not assigned to an order with status "Assigned"
+            var assignedDriverIds = _context.Orders
+                .Where(o => o.DriverAssignmentStatus == "Assigned" && o.DriverId != null)
+                .Select(o => o.DriverId.Value)
+                .ToList();
+
+            return await _context.Drivers
+                .Where(d => d.Status == "Active" && !assignedDriverIds.Contains(d.Id))
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<Driver?> AssignDriverToOrderAsync(int orderId)
+        {
+            var order = await _context.Orders.FindAsync(orderId);
+            if (order == null || order.DriverAssignmentStatus == "Assigned")
+                return null;
+
+            var driver = await GetFirstAvailableDriverAsync();
+            if (driver == null)
+                return null;
+
+            order.DriverId = driver.Id;
+            order.DriverAssignmentStatus = "Assigned";
+            await _context.SaveChangesAsync();
+            return driver;
+        }
     }
 } 
