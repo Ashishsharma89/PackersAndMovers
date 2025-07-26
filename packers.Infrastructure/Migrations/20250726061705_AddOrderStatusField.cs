@@ -5,35 +5,24 @@
 namespace Packer.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class AddDriverAssignmentToOrders : Migration
+    public partial class AddOrderStatusField : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "DriverAssignmentStatus",
+                name: "OrderStatus",
                 table: "Orders",
-                type: "nvarchar(30)",
-                maxLength: 30,
+                type: "nvarchar(max)",
                 nullable: false,
-                defaultValue: "NotAssigned");
-
-            migrationBuilder.AddColumn<int>(
-                name: "DriverId",
-                table: "Orders",
-                type: "int",
-                nullable: true);
+                defaultValue: "");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "DriverAssignmentStatus",
-                table: "Orders");
-
-            migrationBuilder.DropColumn(
-                name: "DriverId",
+                name: "OrderStatus",
                 table: "Orders");
         }
     }

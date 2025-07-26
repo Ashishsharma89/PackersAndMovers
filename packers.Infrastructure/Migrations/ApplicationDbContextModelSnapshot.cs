@@ -201,6 +201,10 @@ namespace Packer.Infrastructure.Migrations
                     b.Property<int?>("DriverId")
                         .HasColumnType("int");
 
+                    b.Property<string>("OrderStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("delivery_date")
                         .HasColumnType("datetime2");
 

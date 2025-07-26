@@ -58,5 +58,10 @@ namespace packers.Application.Services
                 Status = driver.Status
             };
         }
+
+        public async Task<bool> UpdateOrderStatusAndFreeDriverAsync(int orderId, string orderStatus)
+        {
+            return await _driverRepository.UpdateOrderStatusAndFreeDriverAsync(orderId, orderStatus);
+        }
     }
 } 

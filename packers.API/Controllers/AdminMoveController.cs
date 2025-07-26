@@ -44,7 +44,18 @@ public class AdminMoveController : ControllerBase
     {
         var assignedDriver = await _driverService.AssignDriverToOrderAsync(orderId);
         if (assignedDriver == null)
-            return NotFound("No available driver or order not found.");
+            return NotFound("No available driver found or order already assigned.");
+
         return Ok(assignedDriver);
+    }
+
+    [HttpPut("update-order-status/{orderId}")]
+    public async Task<IActionResult> UpdateOrderStatus(int orderId, [FromBody] string orderStatus)
+    {
+        var result = await _driverService.UpdateOrderStatusAndFreeDriverAsync(orderId, orderStatus);
+        if (!result)
+            return NotFound("Order not found.");
+
+        return Ok(new { message = "Order status updated successfully" });
     }
 } 

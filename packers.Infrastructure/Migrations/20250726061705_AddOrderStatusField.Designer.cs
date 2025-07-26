@@ -12,8 +12,8 @@ using packers.Infrastructure.Data;
 namespace Packer.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250722173427_CustomerFormSubmissionsEntityv2")]
-    partial class CustomerFormSubmissionsEntityv2
+    [Migration("20250726061705_AddOrderStatusField")]
+    partial class AddOrderStatusField
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,12 @@ namespace Packer.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.HasSequence<int>("Seq_Customer");
+
+            modelBuilder.HasSequence<int>("Seq_Orders");
+
+            modelBuilder.HasSequence<int>("Seq_Tracking");
 
             modelBuilder.Entity("Packer.Domain.Entities.CustomerFormSubmissions", b =>
                 {
@@ -92,6 +98,195 @@ namespace Packer.Infrastructure.Migrations
                     b.HasKey("id");
 
                     b.ToTable("CustomerFormSubmissions");
+                });
+
+            modelBuilder.Entity("Packer.Domain.Entities.CustomerOrders", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<string>("customer_id")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("order_id")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("CustomerOrders");
+                });
+
+            modelBuilder.Entity("Packer.Domain.Entities.Customers", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValueSql("NEXT VALUE FOR Seq_Customer");
+
+                    b.Property<DateTime>("created_date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("customer_id")
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("nvarchar(max)")
+                        .HasComputedColumnSql("'CUS' + RIGHT('000000' + CAST([id] AS VARCHAR), 6)", true);
+
+                    b.Property<string>("customer_name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("is_active")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("is_deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("phone")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("Packer.Domain.Entities.OrderTracking", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<string>("order_id")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("status_date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("tracking_id")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("OrderTrackings");
+                });
+
+            modelBuilder.Entity("Packer.Domain.Entities.Orders", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValueSql("NEXT VALUE FOR Seq_Orders");
+
+                    b.Property<string>("DriverAssignmentStatus")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)")
+                        .HasDefaultValue("NotAssigned");
+
+                    b.Property<int?>("DriverId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("OrderStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("delivery_date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("destination_location_lat")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("destination_location_long")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("destination_location_name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("distance_in_km")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("estimated_price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("items_json")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("order_date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("order_id")
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("nvarchar(max)")
+                        .HasComputedColumnSql("'OID' + RIGHT('000000' + CAST([id] AS VARCHAR), 6)", true);
+
+                    b.Property<string>("origin_location_lat")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("origin_location_long")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("urgency")
+                        .HasColumnType("bit");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Packer.Domain.Entities.Tracking", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValueSql("NEXT VALUE FOR Seq_Tracking");
+
+                    b.Property<bool>("is_active")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("is_deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("status_date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("tracking_id")
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("nvarchar(max)")
+                        .HasComputedColumnSql("'TID' + RIGHT('000000' + CAST([id] AS VARCHAR), 6)", true);
+
+                    b.HasKey("id");
+
+                    b.ToTable("Tracking");
                 });
 
             modelBuilder.Entity("packers.Domain.Entities.Driver", b =>
@@ -216,6 +411,29 @@ namespace Packer.Infrastructure.Migrations
                     b.ToTable("TrackingEvents");
                 });
 
+            modelBuilder.Entity("packers.Domain.Entities.Truck", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DriverId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TruckNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DriverId")
+                        .IsUnique();
+
+                    b.ToTable("Trucks");
+                });
+
             modelBuilder.Entity("packers.Domain.Entities.User", b =>
                 {
                     b.Property<int>("Id")
@@ -279,6 +497,23 @@ namespace Packer.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("packers.Domain.Entities.Truck", b =>
+                {
+                    b.HasOne("packers.Domain.Entities.Driver", "Driver")
+                        .WithOne("Truck")
+                        .HasForeignKey("packers.Domain.Entities.Truck", "DriverId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Driver");
+                });
+
+            modelBuilder.Entity("packers.Domain.Entities.Driver", b =>
+                {
+                    b.Navigation("Truck")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

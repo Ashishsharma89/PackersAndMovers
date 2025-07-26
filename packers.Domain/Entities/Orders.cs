@@ -33,5 +33,6 @@ namespace Packer.Domain.Entities
         // New properties for driver assignment
         public int? DriverId { get; set; } // Nullable, as order may not have a driver assigned
         public string DriverAssignmentStatus { get; set; } = "NotAssigned"; // e.g., NotAssigned, Assigned, Away, NotAvailable
+        public string OrderStatus { get; set; } = "Pending"; // Pending, InTransit, Delivered, Cancelled
     }
 }

@@ -123,5 +123,35 @@ namespace packers.Infrastructure.Repositories.Users
             await _context.SaveChangesAsync();
             return driver;
         }
+
+        public async Task<bool> UpdateOrderStatusAndFreeDriverAsync(int orderId, string orderStatus)
+        {
+            var order = await _context.Orders.FindAsync(orderId);
+            if (order == null)
+                return false;
+
+            // Update order status
+            order.OrderStatus = orderStatus;
+
+            // If order is delivered, free up the driver
+            if (orderStatus.Equals("Delivered", StringComparison.OrdinalIgnoreCase))
+            {
+                if (order.DriverId.HasValue)
+                {
+                    var driver = await _context.Drivers.FindAsync(order.DriverId.Value);
+                    if (driver != null)
+                    {
+                        // Update driver assignment status to Available
+                        order.DriverAssignmentStatus = "Available";
+                        
+                        // You can also update driver status if needed
+                        // driver.Status = "Active";
+                    }
+                }
+            }
+
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 } 
